@@ -1,0 +1,67 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model tbcities {
+  counter      Int    @id
+  initials     String @db.Char(2)
+  counterstate Int
+  countercity  Int
+  county       String @db.VarChar(50)
+}
+
+model tbclassification {
+  counter      Int             @id @default(autoincrement())
+  description  String?         @db.VarChar(80)
+  user         Int?
+  dtcreated    DateTime?       @default(now()) @db.DateTime(0)
+  dtchanged    DateTime?       @default(now()) @db.DateTime(0)
+  tbusers      tbusers?        @relation(fields: [user], references: [counter], onDelete: Restrict, onUpdate: Restrict, map: "fk_tbclassification_tbusers")
+  prospections tbprospection[]
+
+  @@index([user], map: "fk_tbclassification_tbusers")
+}
+
+model tbprospection {
+  counter          Int              @id @default(autoincrement())
+  name             String           @db.VarChar(120)
+  contact          String           @db.VarChar(40)
+  phone1           String           @db.VarChar(15)
+  phone2           String           @db.VarChar(15)
+  email            String           @db.VarChar(160)
+  classification   Int
+  city             String?          @db.VarChar(50)
+  state            String?          @default("ES") @db.Char(2)
+  nextcontact      String?          @db.VarChar(7)
+  system           String?          @db.VarChar(35)
+  observation      String?          @db.LongText
+  active           Int?             @db.TinyInt
+  user             Int?
+  nlpc             String?          @db.VarChar(14)
+  dtcreated        DateTime?        @default(now()) @db.DateTime(0)
+  dtchanged        DateTime?        @default(now()) @db.DateTime(0)
+  tbclassification tbclassification @relation(fields: [classification], references: [counter], onUpdate: Restrict, map: "fk_tbprospection_tbclassification")
+  tbusers          tbusers?         @relation(fields: [user], references: [counter], onDelete: Restrict, onUpdate: Restrict, map: "fk_tbprospection_tbusers")
+
+  @@index([classification], map: "fk_tbprospection_tbclassification")
+  @@index([user], map: "fk_tbprospection_tbusers")
+}
+
+model tbusers {
+  counter          Int                @id @default(autoincrement())
+  name             String             @db.VarChar(40)
+  password         String             @db.VarChar(50)
+  user             Int?
+  accessusers      Int?               @default(0) @db.TinyInt
+  accessclassific  Int?               @default(0) @db.TinyInt
+  accessprospect   Int?               @default(0) @db.TinyInt
+  dtcreated        DateTime?          @default(now()) @db.DateTime(0)
+  dtchanged        DateTime?          @default(now()) @db.DateTime(0)
+  tbclassification tbclassification[]
+  tbprospection    tbprospection[]
+}
