@@ -84,7 +84,7 @@ function DataGrid<T>({
           }}
         >
           {mounted && (
-            <Table striped={setstriped} hoverable={sethoverable} className="w-full divide-y">
+            <Table striped={setstriped} hoverable={sethoverable}>
               <Table.Head className="text-caption text-gray-500 bg-gray-50">
                 {columns?.length &&
                   columns.map((column) => (
@@ -98,11 +98,11 @@ function DataGrid<T>({
                   ))}
               </Table.Head>
               {dataSource && dataSource?.length > 0 && (
-                <Table.Body className="table-body">
+                <Table.Body className="divide-y h-24 max-h-24">
                   {dataSource.map((row, index) => (
-                    <Table.Row key={getRowKey(row, index)} className="h-12 max-h-12 my-2 overflow-y-hidden bg-white dark:border-gray-700 dark:bg-gray-800">
+                    <Table.Row key={getRowKey(row, index)} className="bg-white dark:border-gray-700 dark:bg-gray-800">
                       {columns.map((column) => (
-                        <Table.Cell key={column.key} className="px-4 truncate whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                        <Table.Cell key={column.key} className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                           {column.index
                             ? (row as any)[column.index]
                             : column?.render && column?.render(row)}

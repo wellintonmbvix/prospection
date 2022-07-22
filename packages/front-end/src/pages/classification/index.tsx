@@ -35,14 +35,6 @@ export default function Page() {
       counter: 6,
       description: "AUTO PEÇAS",
     },
-    {
-      counter: 7,
-      description: "AUTO PEÇAS",
-    },
-    {
-      counter: 8,
-      description: "AUTO PEÇAS",
-    },
   ];
 
   const navigate = useNavigate();
@@ -50,9 +42,13 @@ export default function Page() {
   const columns: ColumnType[] = [
     {
       key: "counter",
-      title: "Código",
-      index: "counter",
+      title: "Código",      
       className: "w-[5%]",
+      render: (row: Classification) => (
+        <div style={{ textAlign: 'center' }}>
+          {row.counter}
+        </div>
+      )
     },
     {
       key: "description",
