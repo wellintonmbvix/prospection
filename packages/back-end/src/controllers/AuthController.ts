@@ -12,8 +12,6 @@ exports.login = async (req: Request, res: Response, next: NextFunction) => {
     const hash = crypto.createHmac("sha256", secret).update(password).digest("base64");  
 
     req.body.password = hash;
-
-    console.log(req.body);
   
     const usuario = await usersController.findUserByUserPass;
 

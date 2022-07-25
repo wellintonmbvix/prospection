@@ -47,7 +47,7 @@ class UsersController {
       const { name, password } = req.body;
 
       const hash = crypto
-        .createHmac("sha256", secret)
+        .createHmac("sha256", secret) /** a const "secret" está acusando erro devido ao ESLint do typescript mas a API funciona */
         .update(password)
         .digest("base64");
 
@@ -78,7 +78,7 @@ class UsersController {
         }
       );
 
-      return res.send({ auth: true, token: token });
+      return res.send({ auth: true, token: `Bearer ${token}` });
     } catch (err) {
       return res.status(400).json({ message: err });
     } finally {

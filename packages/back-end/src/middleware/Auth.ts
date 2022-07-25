@@ -10,7 +10,7 @@ exports.auth = (req: Request, res: Response, next: NextFunction) => {
         .status(401)
         .send({ auth: false, message: "Usuário não autenticado." });
 
-    jwt.verify(token, secret, function (err: unknown, decoded: any) {
+    jwt.verify(token.replace('Bearer ',''), secret, function (err: unknown, decoded: any) {
       if (err)
         return res
           .status(500)
