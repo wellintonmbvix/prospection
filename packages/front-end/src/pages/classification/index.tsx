@@ -42,10 +42,10 @@ export default function Page() {
   const columns: ColumnType[] = [
     {
       key: "counter",
-      title: "Código",      
-      className: "w-[5%]",
+      title: "Código",
+      className:" w-[5%]",
       render: (row: Classification) => (
-        <div style={{ textAlign: 'center' }}>
+        <div style={{ textAlign: 'center'}}>
           {row.counter}
         </div>
       )
@@ -54,18 +54,12 @@ export default function Page() {
       key: "description",
       title: "Nome",
       index: "description",
-      className: "w-[20%]",
-    },
-    {
-      key: "",
-      title: "",
-      index: "",
-      className: "w-[68%]",
+      className:" w-[80%]",
     },
     {
       key: "actions",
       title: "Ações",
-      className: "w-[7%]",
+      className:" w-[5%]",
       render: (row: Classification) => (
         <div className="flex flex-row space-x-4">
           <Tooltip
@@ -98,6 +92,7 @@ export default function Page() {
         columns={columns}
         dataSource={data}
         setstriped={true}
+        loading
         pagination={{
           showIcons: true,
           currentPage: page,

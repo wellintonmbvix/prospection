@@ -1,6 +1,6 @@
 import React from "react";
-import { Card, Button } from "../../lib";
-import { DataGrid, DataGridProps, PageHeader } from "../../components";
+import { Button } from "../../lib";
+import { DataGrid, DataGridProps, PageHeader, Card } from "../../components";
 import { HiPlusCircle } from "react-icons/hi";
 
 type ClassificationsProps = DataGridProps & {
@@ -18,10 +18,10 @@ function Classifications({
       <PageHeader
         title={title}
         actions={
-          <Button size="xs" color="light" onClick={onNew} >
+          <Button size="xs" color="light" onClick={onNew}>
             <div className="flex flex-row items-center space-x-4 font:medium">
-            <HiPlusCircle className="w-5 h-5" />
-            Novo
+              <HiPlusCircle className="w-5 h-5" />
+              Novo
             </div>
           </Button>
         }

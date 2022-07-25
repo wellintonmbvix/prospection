@@ -1,7 +1,13 @@
 import * as React from "react";
+import classNames from 'classnames';
 import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
 
-import { Table, Spinner, Pagination, PaginationProps } from "../../lib/components/";
+import {
+  Table,
+  Spinner,
+  Pagination,
+  PaginationProps,
+} from "../../lib/components/";
 
 import Skeleton from "../Skeleton";
 import EmptyState, { EmptyStateProps } from "../EmptyState";
@@ -39,7 +45,7 @@ function DataGrid<T>({
   loading,
   setstriped = false,
   sethoverable = true,
-  skeletonSize,
+  skeletonSize = 5,
 }: DataGridProps<T>) {
   const [mounted, setMounted] = React.useState(false);
 
@@ -68,11 +74,11 @@ function DataGrid<T>({
   return (
     <div className="divide-y">
       {header}
-      <div className="relative">
+      <div className="w-full overflow-x-auto overflow-y-auto relative shadow-md sm:rounded-lg">
         <OverlayScrollbarsComponent
           options={{
-            className: "os-theme-dark",
-            paddingAbsolute: true,
+            className: "os-theme-minimal-dark",
+            paddingAbsolute: true,            
             scrollbars: {
               autoHide: "move",
             },
@@ -83,9 +89,10 @@ function DataGrid<T>({
             maxHeight: height,
           }}
         >
-          {mounted && (
+          
+          {mounted && (                      
             <Table striped={setstriped} hoverable={sethoverable}>
-              <Table.Head className="text-caption text-gray-500 bg-gray-50">
+              <Table.Head>
                 {columns?.length &&
                   columns.map((column) => (
                     <Table.HeadCell
@@ -97,12 +104,13 @@ function DataGrid<T>({
                     </Table.HeadCell>
                   ))}
               </Table.Head>
+
               {dataSource && dataSource?.length > 0 && (
-                <Table.Body className="divide-y h-24 max-h-24">
+                <Table.Body  className="h-3.5">
                   {dataSource.map((row, index) => (
-                    <Table.Row key={getRowKey(row, index)} className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                    <Table.Row key={getRowKey(row, index)}>
                       {columns.map((column) => (
-                        <Table.Cell key={column.key} className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                        <Table.Cell key={column.key} className="py-3 px-6">
                           {column.index
                             ? (row as any)[column.index]
                             : column?.render && column?.render(row)}
@@ -110,12 +118,13 @@ function DataGrid<T>({
                       ))}
                     </Table.Row>
                   ))}
+
                   {(dataSource === undefined || dataSource?.length <= 0) &&
                     loading &&
                     Array.from(new Array(skeletonSize).keys()).map((key) => (
-                      <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key={key}>
+                      <Table.Row key={key}>
                         {columns.map((column) => (
-                          <Table.Cell key={column.key} className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                          <Table.Cell key={column.key}>
                             <Skeleton
                               variant="text"
                               height={13}
@@ -128,7 +137,7 @@ function DataGrid<T>({
                 </Table.Body>
               )}
             </Table>
-          )}
+          )}        
         </OverlayScrollbarsComponent>
         {mounted && dataSource && dataSource?.length > 0 && loading && (
           <div className="text-center">
@@ -143,7 +152,7 @@ function DataGrid<T>({
         <div className="flex justify-end p-2 m-4">
           <Pagination {...paginationProps} />
         </div>
-      )}      
+      )}
     </div>
   );
 }
