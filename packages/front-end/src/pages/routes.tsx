@@ -1,9 +1,10 @@
 import type { ComponentProps, FC, ReactNode } from "react";
-import Users from "./user/Users";
+import Users from "./user";
 import Classifications from "./classification";
-import Prospects from "./prospect/Prospects";
+import Prospects from "./prospect/indext";
 
 import { HiCollection, HiHome, HiUsers, HiBookOpen } from "react-icons/hi";
+import { ProtectedLayout } from "../components/ProtectedLayout";
 
 export type ComponentCardItem = {
   className: string;
@@ -31,21 +32,33 @@ export const routes: RouteProps[] = [
     title: "Usuários",
     icon: HiUsers,
     href: "/users",
-    component: <Users />,
+    component: (
+      <ProtectedLayout>
+        <Users />
+      </ProtectedLayout>
+    ),
     group: false,
   },
   {
     title: "Classificação",
     icon: HiCollection,
     href: "/classification",
-    component: <Classifications />,
+    component: (
+      <ProtectedLayout>
+        <Classifications />
+      </ProtectedLayout>
+    ),
     group: false,
   },
   {
     title: "Prospecções",
     icon: HiBookOpen,
     href: "/prospects",
-    component: <Prospects />,
+    component: (
+      <ProtectedLayout>
+        <Prospects />
+      </ProtectedLayout>
+    ),
     group: false,
   },
 ];

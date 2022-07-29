@@ -22,9 +22,9 @@ if (root) {
   root.render(
     <Flowbite theme={{ theme }}>
       <React.StrictMode>
-        <BrowserRouter>
-          <Home />
-        </BrowserRouter>
+          <BrowserRouter>
+            <Home />
+          </BrowserRouter>
       </React.StrictMode>
     </Flowbite>
   );

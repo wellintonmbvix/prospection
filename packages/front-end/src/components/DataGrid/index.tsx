@@ -1,5 +1,4 @@
 import * as React from "react";
-import classNames from 'classnames';
 import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
 
 import {

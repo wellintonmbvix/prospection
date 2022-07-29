@@ -1,11 +1,10 @@
+@import '~flowbite';
+@tailwind components;
+@tailwind utilities;
+
 body {
   overflow: hidden;
 }
-
-@import '~flowbite';
-
-@tailwind components;
-@tailwind utilities;
 
 ::-webkit-scrollbar {
   @apply h-1 w-1 bg-gray-100 dark:bg-gray-900;
