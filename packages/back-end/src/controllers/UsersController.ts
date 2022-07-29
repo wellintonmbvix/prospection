@@ -63,7 +63,7 @@ class UsersController {
       });
 
       if (!usuario)
-        return res.status(404).json({ message: "Usuário ou senha inválidos" });
+        return res.status(403).send({token: "", message: "Usuário ou senha inválidos"});
 
       const token = jwt.sign(
         {
@@ -77,8 +77,8 @@ class UsersController {
           expiresIn: 3600
         }
       );
-
-      return res.send({ auth: true, token: `Bearer ${token}` });
+      
+      return res.status(201).json({ auth: true, token: `Bearer ${token}`, user: usuario.name });
     } catch (err) {
       return res.status(400).json({ message: err });
     } finally {
