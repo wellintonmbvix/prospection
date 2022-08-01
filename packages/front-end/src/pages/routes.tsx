@@ -5,6 +5,7 @@ import Prospects from "./prospect/indext";
 
 import { HiCollection, HiHome, HiUsers, HiBookOpen } from "react-icons/hi";
 import { ProtectedLayout } from "../components/ProtectedLayout";
+import Home from "./Home";
 
 export type ComponentCardItem = {
   className: string;
@@ -13,10 +14,10 @@ export type ComponentCardItem = {
 
 export type RouteProps = {
   title: string;
-  icon: FC<ComponentProps<"svg">>;
+  icon?: FC<ComponentProps<"svg">>;
   href: string;
-  component: ReactNode;
-  group: boolean;
+  component?: ReactNode;
+  group?: boolean;
   card?: ComponentCardItem;
 };
 
@@ -24,8 +25,12 @@ export const routes: RouteProps[] = [
   {
     title: "Home",
     icon: HiHome,
-    href: "/",
-    component: "",
+    href: "/home",
+    component: (
+      <ProtectedLayout>
+        <Home />
+      </ProtectedLayout>
+    ),
     group: false,
   },
   {

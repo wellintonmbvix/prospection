@@ -20,9 +20,11 @@ export function getUserLocalStorage() {
 
 export async function LoginRequest(name: string, password: string) {
   try {
+    
     const req = await api.post("login", { name, password });
+    
     return req;
-  } catch (error) {
+  } catch (error) {    
     if (request.isAxiosError(error) && error.response) {
       if (error.response?.status !== 201) {
         const { token, message } = JSON.parse(error.response?.request.response);

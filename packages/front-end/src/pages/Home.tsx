@@ -5,16 +5,13 @@ import { BsGithub } from "react-icons/bs";
 import { HiMenuAlt1 } from "react-icons/hi";
 import { SiStorybook } from "react-icons/si";
 import { routes } from "./routes";
-import Login from "./login";
 
 function Home() {
   const [collapsed, setCollapsed] = useState(false);
   const mainRef = useRef<HTMLDivElement>(null);
   const { pathname } = useLocation();
 
-  return (
-    <Login />
-    /*
+  return (        
     <div className="flex h-screen w-full flex-col overflow-hidden">
       <Navbar className="border-b" fluid>
         <div className="flex items-center">
@@ -79,13 +76,11 @@ function Home() {
               {routes.map(({ href, component: Component }) => (
                 <Route key={href} path={href} element={Component} />
               ))}
-              <Route key="/login" path="/login" element={<Login />} />
             </Routes>
           </Suspense>
         </main>
       </div>
     </div>
-    */
   );
 }
 

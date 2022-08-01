@@ -9,15 +9,16 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
 
   useEffect(() => {
     const user = getUserLocalStorage();
-
+    
     if (user) {
       setUser(user);
     }
   }, []);
 
   async function authenticate(name: string, password: string) {
-    const response = await LoginRequest(name, password);
-
+    
+    const response = await LoginRequest(name, password);   
+    
     if (response?.request.status !== 201) {
       throw new Error(response?.data.message);
     }

@@ -1,10 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import Home from "./pages/Home";
 import { Flowbite } from "./lib/components";
 import { BrowserRouter } from "react-router-dom";
+import App from "./pages/App";
 
 import "./index.css";
+import { AuthProvider } from "./contexts/Auth";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -22,9 +23,11 @@ if (root) {
   root.render(
     <Flowbite theme={{ theme }}>
       <React.StrictMode>
+        <AuthProvider>
           <BrowserRouter>
-            <Home />
+            <App />
           </BrowserRouter>
+        </AuthProvider>
       </React.StrictMode>
     </Flowbite>
   );
