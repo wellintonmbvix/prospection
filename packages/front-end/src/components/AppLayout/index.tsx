@@ -1,13 +1,18 @@
-import React from 'react'
-import Head from '../Head';
-import Footer from '../Footer';
+import Head from "../Head";
+import Rodape from "../Footer";
 
-export default function AppLayout({ children }: { children: JSX.Element}) {
+export default function AppLayout({
+  children,
+}: {
+  children: React.ReactElement;
+}) {
   return (
-    <div className="w-full h-screen min-h-640 flex flex-nowrap flex-col overflow-hidden bg-gray-200 dark:bg-gray-900">
+    <div className="w-screen h-screen">
       <Head />
       {children}
-      <Footer />
+      <div className="absolute bottom-0 left-0">
+        <Rodape />
+      </div>
     </div>
-  )
+  );
 }

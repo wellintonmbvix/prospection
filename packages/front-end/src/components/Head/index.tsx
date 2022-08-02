@@ -1,15 +1,20 @@
-import { Link } from "react-router-dom";
-import { routes } from "../../pages/routes";
-
-
+import NavBar  from "../NavBar"
+import { DarkThemeToggle } from "../../lib";
 
 export default function Head() {
   return (
     <div className="w-screen content-between flex justify-between flex-row items-center p-4 bg-gray-100 dark:bg-gray-700 shadow-lg">
-      <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900">
-        <span className="text-xl font-semibold whitespace-nowrap dark:text-white">
-          {`Prospection`}
-        </span>
+      <div className="container flex flex-wrap justify-between items-center mx-auto">
+        <a href="https://flowbite.com/" className="flex items-center">
+          <img
+            src="https://flowbite.com/docs/images/logo.svg"
+            className="mr-3 h-6 sm:h-9"
+            alt="Flowbite Logo"
+          />
+          <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
+            Prospection
+          </span>
+        </a>
         <button
           data-collapse-toggle="navbar-default"
           type="button"
@@ -17,7 +22,7 @@ export default function Head() {
           aria-controls="navbar-default"
           aria-expanded="false"
         >
-          <span className="sr-only">Abrir menu</span>
+          <span className="sr-only">Open main menu</span>
           <svg
             className="w-6 h-6"
             aria-hidden="true"
@@ -33,15 +38,12 @@ export default function Head() {
           </svg>
         </button>
         <div className="hidden w-full md:block md:w-auto" id="navbar-default">
-            <ul className="flex flex-col p-4 mt-4 bg-gray-50 rounded-lg border border-gray-100 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-                {routes.map(({href, title, component}, key) => (
-                    <li key={key}>                        
-                        <Link to={href} children={component} className="block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white" title={title} />
-                    </li>
-                ))}
-            </ul>
+          <NavBar />
         </div>
-      </nav>
-    </div>
+      </div>
+      <div className="flex items-center gap-2">
+        <DarkThemeToggle />
+      </div>
+    </div>    
   );
 }

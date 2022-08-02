@@ -1,9 +1,9 @@
 import './styles/index.css'
 
-export { default as DataGrid, type DataGridProps } from './DataGrid'
+export { default as NavBar} from './NavBar'
 
-export { default as PageHeader } from './PageHeader'
+export { default as Head } from './Head'
 
-export { default as Card } from './Card'
+export { default as Rodape } from './Footer'
 
-export { default as InputFloatingLabels } from './Input'
+export { default as AppLayout } from './AppLayout'

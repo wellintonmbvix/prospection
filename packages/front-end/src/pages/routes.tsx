@@ -1,11 +1,14 @@
 import type { ComponentProps, FC, ReactNode } from "react";
-import Users from "./user";
-import Classifications from "./classification";
-import Prospects from "./prospect/indext";
-
 import { HiCollection, HiHome, HiUsers, HiBookOpen } from "react-icons/hi";
+import { Route } from "react-router-dom";
+
+import Users from "./user";
+import Home from "./home";
+import Classifications from "./classification";
+import Prospects from "./prospect";
+
 import { ProtectedLayout } from "../components/ProtectedLayout";
-import Home from "./Home";
+import { AppLayout } from "../components";
 
 export type ComponentCardItem = {
   className: string;
@@ -27,8 +30,8 @@ export const routes: RouteProps[] = [
     icon: HiHome,
     href: "/home",
     component: (
-      <ProtectedLayout>
-        <Home />
+      <ProtectedLayout>        
+        <Route children={<Home />} />        
       </ProtectedLayout>
     ),
     group: false,
@@ -39,7 +42,7 @@ export const routes: RouteProps[] = [
     href: "/users",
     component: (
       <ProtectedLayout>
-        <Users />
+        <Route children={<Users />} />
       </ProtectedLayout>
     ),
     group: false,
@@ -50,7 +53,7 @@ export const routes: RouteProps[] = [
     href: "/classification",
     component: (
       <ProtectedLayout>
-        <Classifications />
+        <Route children={<Classifications />} />
       </ProtectedLayout>
     ),
     group: false,
@@ -61,7 +64,7 @@ export const routes: RouteProps[] = [
     href: "/prospects",
     component: (
       <ProtectedLayout>
-        <Prospects />
+        <Route children={<Prospects />} />
       </ProtectedLayout>
     ),
     group: false,
