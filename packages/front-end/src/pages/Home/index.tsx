@@ -1,6 +1,30 @@
 
 export default function Home() {
   return (
-    <div><h1>Home</h1></div>
+    <div>      
+      <span className="text-xl font-semibold dark:text-white">Home</span>
+      <p>Teste</p>
+      <p>Teste</p>
+      <p>Teste</p>
+      <p>Teste</p>
+      <p>Teste</p>
+      <p>Teste</p>
+      <p>Teste</p>
+      <p>Teste</p>
+      <p>Teste</p>
+      <p>Teste</p>
+      <p>Teste</p>
+      <p>Teste</p>
+      <p>Teste</p>
+      <p>Teste</p>
+      <p>Teste</p>
+      <p>Teste</p>
+      <p>Teste</p>
+      <p>Teste</p>
+      <p>Teste</p>
+      <p>Teste</p>
+      <p>Teste</p>
+      <p>Final</p>
+    </div>
   );
 }

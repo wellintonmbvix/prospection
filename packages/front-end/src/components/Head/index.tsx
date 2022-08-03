@@ -3,7 +3,7 @@ import { DarkThemeToggle } from "../../lib";
 
 export default function Head() {
   return (
-    <div className="w-screen content-between flex justify-between flex-row items-center p-4 bg-gray-100 dark:bg-gray-700 shadow-lg">
+    <div className="w-screen content-between flex justify-between flex-row items-center p-4 bg-gray-100 dark:bg-gray-700 shadow-lg z-10" id="cabecalho">
       <div className="container flex flex-wrap justify-between items-center mx-auto">
         <a href="https://flowbite.com/" className="flex items-center">
           <img
@@ -31,9 +31,9 @@ export default function Head() {
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              fill-rule="evenodd"
+              fillRule="evenodd"
               d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-              clip-rule="evenodd"
+              clipRule="evenodd"
             ></path>
           </svg>
         </button>

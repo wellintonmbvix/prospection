@@ -10,7 +10,14 @@ class UsersController {
   public async findAllUsers(_: Request, res: Response) {
     try {
       const users = await prisma.tbusers.findMany({
-        orderBy: { dtcreated: "desc" },
+        select: {
+          counter: true,
+          name: true,
+          accessusers: true,
+          accessclassific: true,
+          accessprospect: true,
+        },
+        orderBy: { counter: "asc" },
       });
 
       if (users.length === 0)
