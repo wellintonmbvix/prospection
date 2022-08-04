@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/Auth/useAuth";
+import { setUserLocalStorage } from "../../contexts/Auth/util";
 
 import { DarkThemeToggle } from "../../lib";
 
@@ -24,7 +25,7 @@ export default function Login() {
     } catch (error) {      
       setShowAviso(true);
     }
-  }
+  } 
 
   return (
     <div className="w-full h-screen min-h-640 flex flex-nowrap flex-col overflow-hidden bg-gray-200 dark:bg-gray-900">

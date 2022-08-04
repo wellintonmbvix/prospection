@@ -11,12 +11,12 @@ export interface ContentProps {
 export default function Content({ children }: ContentProps) {
   return (
     <>
-      <SimpleBar
-        className="w-auto h-screen pb-36 flex flex-col"
-        style={{ overflowY: "auto", height: "100vh" }}
+      <div
+        className="w-auto h-screen pb-36 flex flex-col overflow-auto scroll-smooth"
+        //style={{ overflowY: "auto", height: "100vh" }}
       >
         {children}
-      </SimpleBar>
+      </div>
       <Rodape />
     </>
   );
