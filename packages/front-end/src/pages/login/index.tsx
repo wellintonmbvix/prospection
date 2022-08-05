@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/Auth/useAuth";
-import { setUserLocalStorage } from "../../contexts/Auth/util";
 
 import { DarkThemeToggle } from "../../lib";
 

@@ -1,8 +1,11 @@
 import request from "axios";
 import { api } from "../../hooks/useApi";
-import { IUser } from "../../types";
 
-export function setUserLocalStorage(user: IUser | null) {
+interface UsuarioRequest {
+  name: string;
+}
+
+export function setUserLocalStorage(user: UsuarioRequest | null) {
   localStorage.setItem("u", JSON.stringify(user));
 }
 

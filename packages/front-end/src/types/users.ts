@@ -1,8 +1,8 @@
 export interface IUser {
-    counter?: number;
+    counter: number;
     name?: string;
     password?: string;
     accessusers?: boolean;
     accessprospect?: boolean;
-    accessclassific?: boolean;
+    accessclassific?: number;
 }
