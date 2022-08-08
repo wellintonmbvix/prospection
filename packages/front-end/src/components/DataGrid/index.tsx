@@ -56,10 +56,11 @@ export default function DataGrid<T>({
     return key;
   };
   return (
+    <>
     <div className="overflow-x-auto relative">
       {mounted && (
         <table className="w-full text-sm text-left text-gray-500 bg-white dark:text-gray-400">
-          <thead className="text-x text-gray-700 uppercase bg-gay-50 dark:bg-gray-700 dark:text-gray-400">
+          <thead className="text-x bg-gray-200 text-gray-400 uppercase dark:bg-gray-700 dark:text-gray-400">
             <tr>
               {columns?.length &&
                 columns.map((column) => (
@@ -102,7 +103,7 @@ export default function DataGrid<T>({
         </table>
       )}
       {mounted && dataSource && dataSource?.length > 0 && loading && (
-        <div>
+        <div className="z-10">
             <Spinner />
         </div>
       )}
@@ -110,5 +111,6 @@ export default function DataGrid<T>({
         <EmptyState {...emptyStateProps}/>
       )}
     </div>
+    </>
   );
 }

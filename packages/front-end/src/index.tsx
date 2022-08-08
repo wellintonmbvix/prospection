@@ -4,8 +4,10 @@ import App from "./pages/App";
 import { Flowbite } from "./lib/components";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./contexts/Auth";
+import { QueryClientProvider } from "@tanstack/react-query";
 
 import "./index.css";
+import { queryClient } from "./store/services/queryClient";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -23,11 +25,13 @@ if (root) {
   root.render(
     <Flowbite theme={{ theme }}>
       <React.StrictMode>
-        <AuthProvider>
-          <BrowserRouter>            
-              <App />          
-          </BrowserRouter>
-        </AuthProvider>
+        <QueryClientProvider client={queryClient}>
+          <AuthProvider>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </AuthProvider>
+        </QueryClientProvider>
       </React.StrictMode>
     </Flowbite>
   );

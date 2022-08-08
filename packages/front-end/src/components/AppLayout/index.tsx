@@ -1,7 +1,5 @@
 import Head from "../Head";
-import Rodape from "../Footer";
 import Content from "../Content";
-import SimpleBar from "simplebar-react";
 
 import "simplebar-react/dist/simplebar.min.css";
 

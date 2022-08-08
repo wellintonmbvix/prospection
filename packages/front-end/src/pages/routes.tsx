@@ -5,6 +5,7 @@ import Classification from "./classification";
 import Prospects from "./prospect";
 import Login from "./login";
 import { AppLayout } from "../components";
+import EditarUsers from "./user/editar";
 
 interface PrivateRouteProps {
   children: React.ReactElement;
@@ -40,6 +41,16 @@ export default function Rotas() {
             </PrivateRoute>
           }
           path="/users"
+        />
+        <Route
+          element={
+            <PrivateRoute redirectTo="/">
+              <AppLayout>
+                <EditarUsers />
+              </AppLayout>
+            </PrivateRoute>
+          }
+          path="/users/editar"
         />
         <Route
           element={

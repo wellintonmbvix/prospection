@@ -29,9 +29,16 @@ export default function Login() {
   return (
     <div className="w-full h-screen min-h-640 flex flex-nowrap flex-col overflow-hidden bg-gray-200 dark:bg-gray-900">
       <div className="w-screen content-between flex justify-between flex-row items-center p-4 bg-gray-100 dark:bg-gray-700 shadow-lg">
-        <span className="text-xl font-semibold whitespace-nowrap dark:text-white">
-          {`Prospection`}
-        </span>
+      <a href="https://flowbite.com/" className="flex items-center">
+          <img
+            src="https://flowbite.com/docs/images/logo.svg"
+            className="mr-3 h-6 sm:h-9"
+            alt="Flowbite Logo"
+          />
+          <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
+            Prospection
+          </span>
+        </a>
         <div className="flex items-center gap-2">
           <DarkThemeToggle />
         </div>

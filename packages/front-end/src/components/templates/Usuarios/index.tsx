@@ -17,7 +17,7 @@ export default function Usuarios({
       <PageHeader
         title={title}
         actions={
-          <Button icon={PlusSmIcon} onClick={onNew} color="secondary">
+          <Button icon={PlusSmIcon} onClick={onNew} color="primary">
             Novo
           </Button>
         }

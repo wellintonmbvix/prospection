@@ -1,20 +1,13 @@
-import React, { ReactElement, useCallback, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Button, ColumnType } from "../../components/";
+import { Link, useNavigate } from "react-router-dom";
+import { ColumnType } from "../../components/";
 import { IUser } from "../../types/index";
 import { PencilAltIcon, TrashIcon } from "@heroicons/react/outline";
 import Users from "../../components/templates/Usuarios";
-import { getUsersAll } from "../../store/users";
+import { GetUsersAll } from "../../store/users";
 
 export default function Page() {
-  const [usuarios, setUsuarios] = useState<IUser[]>([]);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    getUsersAll()
-      .then((response) => setUsuarios(response.data))
-      .catch();
-  }, []);
+  const { data, error, isLoading, isFetching } = GetUsersAll();
 
   const columns: ColumnType[] = [
     {
@@ -31,20 +24,16 @@ export default function Page() {
       key: "name",
       title: "Nome",
       index: "name",
-      className: "w-[70%]",
+      className: "w-[75%]",
     },
     {
       key: "actions",
       title: "Ações",
-      className: "w-[15%]",
+      className: "w-[10%]",
       render: (row: IUser) => (
-        <div className="flex items-center space-x-1">
-          <Button
-            icon={PencilAltIcon}
-            onClick={() => navigate(`/user/editar?id=${row.counter}`)}
-            color="warning"
-          />
-          <Button icon={TrashIcon} onClick={() => {}} color="danger" />
+        <div className="flex items-center space-x-2 w-14">   
+          <Link to={`/users/editar?id=${row.counter}`}><PencilAltIcon className="w-6 h-6 stroke-gray-700 dark:stroke-gray-50 hover:cursor-pointer" /></Link>
+          <Link to="#" onClick={() => {}}><TrashIcon className="w-6 h-6 stroke-red-700 hover:cursor-pointer" /></Link>          
         </div>
       ),
     },
@@ -56,7 +45,8 @@ export default function Page() {
         <Users
           title="Usuários"
           columns={columns}
-          dataSource={usuarios}
+          dataSource={data}
+          loading={isLoading}
           rowKey={(row: IUser) => row.counter}
         />
       </div>

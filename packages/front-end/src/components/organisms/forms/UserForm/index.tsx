@@ -19,27 +19,28 @@ export default function UserForm({
   saving,
 }: UserFormProps) {
   return (
-    <div className="relative h-full flex flex-nowrap grid justify-items-center flex items-center bg-gray-100 dark:bg-gray-600">
-      <Form onSubmit={onSubmit}>
-        <Row>
-          <Col sm={18} md={6}>
-            <div className="relative z-0 mb-6 w-full group">
-              <Form.Item label="Nome">
-                <Controller
-                  name="name"
-                  control={control}
-                  render={({ field }) => (
-                    <Input {...field} error={errors.name?.message} />
-                  )}
-                />
-              </Form.Item>
-            </div>
-          </Col>
-        </Row>
-        <Button type="submit" className="mt-2">
-          {saving ? 'Salvando...' : 'Salvar'}
-        </Button>
-      </Form>
-    </div>
+    <>
+        <Form onSubmit={onSubmit}>
+          <Row>
+            <Col sm={18} md={6}>
+              <div className="relative z-0 mb-6 w-full group">
+                <Form.Item label="Nome" nameInput="name">
+                  <Controller
+                    name="name"
+                    control={control}
+                    render={({ field }) => (
+                      <Input {...field} error={errors.name?.message} />
+                    )}
+                  />
+                </Form.Item>
+              </div>
+            </Col>
+          </Row>
+          <Button type="submit" className="mt-2">
+            {saving ? "Salvando..." : "Salvar"}
+          </Button>
+        </Form>
+      
+    </>
   );
 }

@@ -6,7 +6,10 @@ interface UsuarioRequest {
 }
 
 export function setUserLocalStorage(user: UsuarioRequest | null) {
-  localStorage.setItem("u", JSON.stringify(user));
+  if(user !== null){
+    localStorage.setItem("u", JSON.stringify(user)); 
+  } else 
+    localStorage.removeItem("u");
 }
 
 export function getUserLocalStorage() {

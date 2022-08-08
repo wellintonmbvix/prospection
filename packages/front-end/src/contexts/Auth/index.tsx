@@ -2,7 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import { IAuthProvider, IContext } from "../../types";
 import { getUserLocalStorage, LoginRequest, setUserLocalStorage } from "./util";
 
-interface UsuarioRequest {
+interface UsuarioRequest {  
   name: string;
 }
 
@@ -12,9 +12,9 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
   const [user, setUser] = useState<UsuarioRequest | null>();
 
   useEffect(() => {
-    const user = getUserLocalStorage();
-    
-    if (user) {
+    const user = getUserLocalStorage();    
+
+    if (user !== null) {
       setUser(user);
     }
   }, []);
