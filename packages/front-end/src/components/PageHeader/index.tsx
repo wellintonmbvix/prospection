@@ -24,7 +24,7 @@ export default function PageHeader({
     <>
       <div className="flex items-center">
         {showGoBack && (
-          <Button className="mr-2 stroke-gray-700 dark:stroke-gray-50" icon={ArrowLeftIcon} onClick={onGoBack} />
+          <ArrowLeftIcon className="w-5 h-5 fill-gray-700 stroke-gray-700 dark:fill-gray-50 dark:stroke-gray-50 hover:cursor-pointer mr-2 mt-2" onClick={onGoBack} />
         )}
         <Typography variant="h1">{title}</Typography>
         <span className="flex-1" />

@@ -51,8 +51,8 @@ export default function Typography({
           variant !== "overline" &&
             variant !== "subtitle1" &&
             variant !== "subtitle2"
-            ? "text-black"
-            : "text-gray-400"
+            ? "text-black dark:text-white"
+            : "text-gray-400 dark:text-gray-50"
         );
         break;
     }
@@ -65,7 +65,7 @@ export default function Typography({
   switch (variant) {
     case "h1":
       return (
-        <h1 className={getClassName()} style={style}>
+        <h1 className={`${getClassName()} text-2xl`} style={style}>
           {children}
         </h1>
       );

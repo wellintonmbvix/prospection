@@ -5,7 +5,8 @@ import Classification from "./classification";
 import Prospects from "./prospect";
 import Login from "./login";
 import { AppLayout } from "../components";
-import EditarUsers from "./user/editar";
+import UppdateUsers from "./user/editar";
+import NewUsers from "./user/novo";
 
 interface PrivateRouteProps {
   children: React.ReactElement;
@@ -14,7 +15,7 @@ interface PrivateRouteProps {
 
 const PrivateRoute = ({ children, redirectTo }: PrivateRouteProps) => {
   const isAuthenticated = localStorage.getItem("u") !== null;
-  
+
   return isAuthenticated ? children : <Navigate to={redirectTo} />;
 };
 
@@ -46,11 +47,21 @@ export default function Rotas() {
           element={
             <PrivateRoute redirectTo="/">
               <AppLayout>
-                <EditarUsers />
+                <UppdateUsers />
               </AppLayout>
             </PrivateRoute>
           }
           path="/users/editar"
+        />
+        <Route
+          element={
+            <PrivateRoute redirectTo="/">
+              <AppLayout>
+                <NewUsers />
+              </AppLayout>
+            </PrivateRoute>
+          }
+          path="/users/novo"
         />
         <Route
           element={

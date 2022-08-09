@@ -47,6 +47,7 @@ export default function Page() {
           columns={columns}
           dataSource={data}
           loading={isLoading}
+          onNew={() => {navigate("/users/novo")}}
           rowKey={(row: IUser) => row.counter}
         />
       </div>

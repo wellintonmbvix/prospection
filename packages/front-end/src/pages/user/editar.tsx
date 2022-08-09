@@ -5,7 +5,7 @@ import { IUser } from "../../types";
 import { GetUsersById } from "../../store/users";
 import UserForm from "../../components/templates/Usuarios/Form";
 
-export default function EditarUsers() {
+export default function Page() {
   const {
     handleSubmit,
     control,
@@ -30,11 +30,11 @@ export default function EditarUsers() {
       <div className="w-1/2">
         {user && (
           <UserForm
-            title="Editar cor"
+            title="Edição de Usuário"
             form={{
               control,
               errors,
-              saving: true,
+              saving: false,
               onSubmit: handleSubmit(onSubmit),
             }}
           />

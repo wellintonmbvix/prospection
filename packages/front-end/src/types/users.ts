@@ -4,5 +4,5 @@ export interface IUser {
     password?: string;
     accessusers?: boolean;
     accessprospect?: boolean;
-    accessclassific?: number;
+    accessclassific?: boolean;
 }
