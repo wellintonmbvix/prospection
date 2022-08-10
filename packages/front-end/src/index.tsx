@@ -8,6 +8,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 
 import "./index.css";
 import { queryClient } from "./store/services/queryClient";
+import { SnackbarProvider } from "./components/Snackbar";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -28,7 +29,9 @@ if (root) {
         <QueryClientProvider client={queryClient}>
           <AuthProvider>
             <BrowserRouter>
+            <SnackbarProvider>
               <App />
+            </SnackbarProvider>
             </BrowserRouter>
           </AuthProvider>
         </QueryClientProvider>

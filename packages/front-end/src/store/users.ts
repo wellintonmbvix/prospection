@@ -29,12 +29,12 @@ export function GetUsersById(id: string | null) {
   return { data, isFetching, isLoading, error };
 }
 
-export function AddUser(usuario: IUser){
+export function useAddUser(usuario: IUser){
   const [postResult, setPostResult] = useState({}); 
 
   const { isLoading, isSuccess, mutate: postUsuario }   = useMutation(
     async () => {
-      return await api.post("/users", usuario)
+      return await api.post("/users/create", usuario)
     },
     {
       onSuccess: (res) => {

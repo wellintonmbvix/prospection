@@ -4,7 +4,8 @@ import Snackbar, { SnackbarProps, SnackbarType } from ".";
 
 interface SnackbarOptions {
   /**
-   * Definir tempo de espera para ocultar  o snackbar
+   * Definir tempo de espera para ocultar o snackbar.
+   * @default 2000
    */
   timeout?: number;
 }

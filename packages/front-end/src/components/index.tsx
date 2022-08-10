@@ -31,3 +31,5 @@ export { default as Form, type FormProps} from './Form'
 export { default as Divider, type DividerProps } from './Divider'
 
 export { default as Card, type CardProps } from './Card'
+
+export { default as Snackbar, type SnackbarProps } from './Snackbar'
