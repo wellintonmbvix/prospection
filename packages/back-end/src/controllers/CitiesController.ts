@@ -6,8 +6,8 @@ const prisma = new PrismaClient();
 class CitiesController {
   public async findAllCities(_: Request, res: Response) {
     try {
-      const cities = await prisma.tbcities.findMany({
-        orderBy: { county: "asc" },
+      const cities = await prisma.cidades.findMany({
+        orderBy: { cidadeId: "asc" },
       });
 
       if (cities.length === 0)

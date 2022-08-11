@@ -6,8 +6,8 @@ const prisma = new PrismaClient();
 class RatingsController {
   public async findAllRatings(_: Request, res: Response) {
     try {
-      const ratings = await prisma.tbclassification.findMany({
-        orderBy: { counter: "asc" },
+      const ratings = await prisma.seguimentos.findMany({
+        orderBy: { created_at: "asc" },
       });
 
       if (ratings.length === 0)
@@ -26,8 +26,8 @@ class RatingsController {
   public async findRatingsById(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      const rating = await prisma.tbclassification.findUnique({
-        where: { counter: Number(id) },
+      const rating = await prisma.seguimentos.findUnique({
+        where: { seguimentoId: id },
       });
 
       if (!rating)
@@ -45,12 +45,11 @@ class RatingsController {
 
   public async createRating(req: Request, res: Response) {
     try {
-      const { description, user } = req.body;
+      const { descricao } = req.body;
 
-      const rating = await prisma.tbclassification.create({
+      const rating = await prisma.seguimentos.create({
         data: {
-          description,
-          user,
+          descricao
         },
       });
 
@@ -66,11 +65,11 @@ class RatingsController {
     try{
       const { id } = req.params
 
-      const rating = await prisma.tbclassification.update({
+      const rating = await prisma.seguimentos.update({
         data: {
           ...req.body,
         },
-        where: { counter: Number(id) },
+        where: { seguimentoId: id },
       });
 
       if (!rating) {
@@ -89,8 +88,8 @@ class RatingsController {
     try {
       const { id } = req.params;
 
-      const rating = await prisma.tbclassification.delete({
-        where: { counter: Number(id) },
+      const rating = await prisma.seguimentos.delete({
+        where: { seguimentoId: id },
       });
 
       if (!rating) return res.json({ message: "Classificação não encontrada" });

@@ -7,61 +7,60 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model tbcities {
-  counter      Int    @id
-  initials     String @db.Char(2)
-  counterstate Int
-  countercity  Int
-  county       String @db.VarChar(50)
+model Cidades {
+  counter    Int    @id
+  cidadeId   Int
+  nomeCidade String @db.VarChar(50)
+  ufId       Int
+  uf         String @db.Char(2)
+
+  @@map("cidades")
 }
 
-model tbclassification {
-  counter      Int             @id @default(autoincrement())
-  description  String?         @db.VarChar(80)
-  user         Int?
-  dtcreated    DateTime?       @default(now()) @db.DateTime(0)
-  dtchanged    DateTime?       @default(now()) @db.DateTime(0)
-  tbusers      tbusers?        @relation(fields: [user], references: [counter], onDelete: Restrict, onUpdate: Restrict, map: "fk_tbclassification_tbusers")
-  prospections tbprospection[]
+model Users {
+  usuarioId         String       @id @default(uuid())
+  nomeUsuario       String       @unique @db.VarChar(40)
+  senhaAcesso       String       @db.VarChar(50)
+  acessoUsuarios    Boolean      @default(false) @db.TinyInt
+  acessoSeguimentos Boolean      @default(false) @db.TinyInt
+  acessoProspeccao  Boolean      @default(false) @db.TinyInt
+  created_at        DateTime?    @default(now()) @db.DateTime(0)
+  updated_at        DateTime?    @updatedAt
+  Prospeccao        Prospeccao[]
 
-  @@index([user], map: "fk_tbclassification_tbusers")
+  @@map("usuarios")
 }
 
-model tbprospection {
-  counter          Int              @id @default(autoincrement())
-  name             String           @db.VarChar(120)
-  contact          String           @db.VarChar(40)
-  phone1           String           @db.VarChar(15)
-  phone2           String           @db.VarChar(15)
-  email            String           @db.VarChar(160)
-  classification   Int
-  city             String?          @db.VarChar(50)
-  state            String?          @default("ES") @db.Char(2)
-  nextcontact      String?          @db.VarChar(7)
-  system           String?          @db.VarChar(35)
-  observation      String?          @db.LongText
-  active           Int?             @db.TinyInt
-  user             Int?
-  nlpc             String?          @db.VarChar(14)
-  dtcreated        DateTime?        @default(now()) @db.DateTime(0)
-  dtchanged        DateTime?        @default(now()) @db.DateTime(0)
-  tbclassification tbclassification @relation(fields: [classification], references: [counter], onUpdate: Restrict, map: "fk_tbprospection_tbclassification")
-  tbusers          tbusers?         @relation(fields: [user], references: [counter], onDelete: Restrict, onUpdate: Restrict, map: "fk_tbprospection_tbusers")
+model Prospeccao {
+  prospeccaoId   String      @id @default(uuid())
+  nomeEmpresa    String      @db.VarChar(120)
+  nomeContato    String      @db.VarChar(40)
+  telefone1      String      @db.VarChar(15)
+  telefone2      String      @db.VarChar(15)
+  email1         String      @db.VarChar(160)
+  email2         String      @db.VarChar(160)
+  id_seguimento  String
+  seguimento     Seguimentos @relation(fields: [id_seguimento], references: [seguimentoId])
+  cidade         String?     @db.VarChar(50)
+  estado         String?     @default("ES") @db.Char(2)
+  proximoContato String?     @db.VarChar(7)
+  nomeSistema    String      @db.VarChar(35)
+  observacao     String      @db.LongText
+  ativo          Boolean     @default(true) @db.TinyInt
+  id_usuario     String
+  usuario        Users       @relation(fields: [id_usuario], references: [usuarioId])
+  created_at     DateTime?   @default(now()) @db.DateTime(0)
+  updated_at     DateTime?   @updatedAt
 
-  @@index([classification], map: "fk_tbprospection_tbclassification")
-  @@index([user], map: "fk_tbprospection_tbusers")
+  @@map("prospeccao")
 }
 
-model tbusers {
-  counter          Int                @id @default(autoincrement())
-  name             String             @db.VarChar(40)
-  password         String             @db.VarChar(50)
-  user             Int?
-  accessusers      Int?               @default(0) @db.TinyInt
-  accessclassific  Int?               @default(0) @db.TinyInt
-  accessprospect   Int?               @default(0) @db.TinyInt
-  dtcreated        DateTime?          @default(now()) @db.DateTime(0)
-  dtchanged        DateTime?          @default(now()) @db.DateTime(0)
-  tbclassification tbclassification[]
-  tbprospection    tbprospection[]
+model Seguimentos {
+  seguimentoId String       @id @default(uuid())
+  descricao    String       @unique @db.VarChar(80)
+  created_at   DateTime?    @default(now()) @db.DateTime(0)
+  updated_at   DateTime?    @updatedAt
+  Prospeccao   Prospeccao[]
+
+  @@map("seguimentos")
 }

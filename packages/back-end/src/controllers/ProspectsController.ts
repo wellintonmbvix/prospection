@@ -8,9 +8,9 @@ class ProspectsController {
     try {
       let { linhas = 50, pagina = 1, byName = "" } = req.query;
 
-      const registros = await prisma.tbprospection.count({
+      const registros = await prisma.prospeccao.count({
         where: {
-          name: {
+          nomeEmpresa: {
             contains: String(byName),
           },
         },
@@ -19,11 +19,11 @@ class ProspectsController {
       const totalPages = Math.ceil(registros / Number(linhas)).toFixed(0);
 
       if (pagina == "1") {
-        const prospects = await prisma.tbprospection.findMany({
+        const prospects = await prisma.prospeccao.findMany({
           take: Number(linhas),
-          orderBy: { counter: "asc" },
+          orderBy: { created_at: "asc" },
           where: {
-            name: {
+            nomeEmpresa: {
               contains: String(byName),
             },
           },
@@ -42,12 +42,12 @@ class ProspectsController {
           },
         });
       } else {
-        const prospects = await prisma.tbprospection.findMany({
+        const prospects = await prisma.prospeccao.findMany({
           take: Number(linhas),
           skip: Number(linhas) * Number(pagina),
-          orderBy: { counter: "asc" },
+          orderBy: { created_at: "asc" },
           where: {
-            name: {
+            nomeEmpresa: {
               contains: String(byName),
             },
           },
@@ -75,9 +75,9 @@ class ProspectsController {
     try {
       const { id } = req.params;
 
-      const prospect = await prisma.tbprospection.findUnique({
+      const prospect = await prisma.prospeccao.findUnique({
         where: {
-          counter: Number(id),
+          prospeccaoId: id,
         },
       });
 
@@ -95,38 +95,38 @@ class ProspectsController {
   public async createProspects(req: Request, res: Response) {
     try {
       const {
-        name,
-        contact,
-        phone1,
-        phone2,
-        email,
-        classification,
-        city,
-        state,
-        nextcontact,
-        system,
-        observation,
-        active = 1,
-        user,
-        nlpc,
+        nomeEmpresa,
+        nomeContato,
+        telefone1,
+        telefone2,
+        email1,
+        email2,
+        id_seguimento,
+        cidade,
+        estado,
+        proximoContato,
+        nomeSistema,
+        observacao,
+        ativo = 1,
+        id_usuario,        
       } = req.body;
 
-      const prospect = await prisma.tbprospection.create({
+      const prospect = await prisma.prospeccao.create({
         data: {
-          name,
-          contact,
-          phone1,
-          phone2,
-          email,
-          classification,
-          city,
-          state,
-          nextcontact,
-          system,
-          observation,
-          active,
-          user,
-          nlpc,
+          nomeEmpresa,
+          nomeContato,
+          telefone1,
+          telefone2,
+          email1,
+          email2,
+          id_seguimento,
+          cidade,
+          estado,
+          proximoContato,
+          nomeSistema,
+          observacao,
+          ativo,
+          id_usuario,          
         },
       });
 
@@ -142,11 +142,11 @@ class ProspectsController {
     try {
       const { id } = req.params;
 
-      const prospect = await prisma.tbprospection.update({
+      const prospect = await prisma.prospeccao.update({
         data: {
           ...req.body,
         },
-        where: { counter: Number(id) },
+        where: { prospeccaoId: id },
       });
 
       if (!prospect) {
@@ -165,8 +165,8 @@ class ProspectsController {
     try {
       const { id } = req.params;
 
-      const prospect = await prisma.tbprospection.delete({
-        where: { counter: Number(id) },
+      const prospect = await prisma.prospeccao.delete({
+        where: { prospeccaoId: id },
       });
 
       if (!prospect) return res.json({ message: "Prospecção não encontrada" });
