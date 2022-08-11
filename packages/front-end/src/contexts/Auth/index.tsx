@@ -3,7 +3,7 @@ import { IAuthProvider, IContext } from "../../types";
 import { getUserLocalStorage, LoginRequest, setUserLocalStorage } from "./util";
 
 interface UsuarioRequest {  
-  name: string;
+  nome: string;
 }
 
 export const AuthContext = createContext<IContext>({} as IContext);
@@ -19,15 +19,15 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
     }
   }, []);
 
-  async function authenticate(name: string, password: string) {
+  async function authenticate(nome: string, senha: string) {
     
-    const response = await LoginRequest(name, password);   
+    const response = await LoginRequest(nome, senha);   
     
     if (response?.request.status !== 201) {
       throw new Error(response?.data.message);
     }
 
-    const payload = { token: response.data.token, name };
+    const payload = { token: response.data.token, nome };
 
     setUser(payload);
     setUserLocalStorage(payload);

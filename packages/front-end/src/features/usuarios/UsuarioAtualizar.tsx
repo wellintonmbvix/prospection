@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Snackbar, Button, Grid, Form } from "../../components";
+import { Snackbar, Button, Grid, Form, Spinner } from "../../components";
 import { Controller, useForm } from "react-hook-form";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { IUser } from "../../types";
+import { Usuario } from "../../types";
 import { api } from "../../hooks/useApi";
 import { useNavigate } from "react-router-dom";
 
@@ -17,7 +17,7 @@ export default function UsuarioAtualizar({ usuarioId }: UsuarioAtualizarProps) {
   const snackbar = useSnackbar();
   const [isError, setIsError] = useState(false);
   const navigate = useNavigate();
-  const { handleSubmit, control, reset } = useForm<IUser>();
+  const { handleSubmit, control, reset } = useForm<Usuario>();
   const { data: usuario } = useQuery(["usuarios"], async () => {
     const response = await api.get(`/users/${usuarioId}`);
 
@@ -28,7 +28,7 @@ export default function UsuarioAtualizar({ usuarioId }: UsuarioAtualizarProps) {
     if (usuario) reset(usuario);
   }, [usuario]);
 
-  const postUsuario = async (usuario: IUser) => {
+  const postUsuario = async (usuario: Usuario) => {
     const response = await api.put(`/users/update/${usuarioId}`, usuario);
     return response.status;
   };
@@ -41,7 +41,7 @@ export default function UsuarioAtualizar({ usuarioId }: UsuarioAtualizarProps) {
 
   const { isLoading } = mutation;
 
-  const onSubmit = (values: IUser, _: any) => {
+  const onSubmit = (values: Usuario, _: any) => {    
     mutation.mutate(values);
     if (!isError) {
       snackbar.success("Usuário atualizado com sucesso!");
@@ -59,15 +59,15 @@ export default function UsuarioAtualizar({ usuarioId }: UsuarioAtualizarProps) {
           <Col xs={12} sm={12} md={6} lg={6} xl={6}>
             <div className="relative">
               <Controller
-                name="name"
+                name="nomeUsuario"
                 control={control}
                 rules={{ required: `Nome de usuário é obrigatório` }}
                 render={({ field }) => (
                   <input
                     {...field}
                     type="text"
-                    name="name"
-                    id="name"
+                    name="nomeUsuario"
+                    id="nomeUsuario"
                     className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                     placeholder=" "
                     required
@@ -75,7 +75,7 @@ export default function UsuarioAtualizar({ usuarioId }: UsuarioAtualizarProps) {
                 )}
               />
               <label
-                htmlFor="name"
+                htmlFor="nomeUsuario"
                 className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-25 top-2 z-10 origin-[0] bg-gray-100 dark:bg-gray-800 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-25 peer-focus:-translate-y-4 left-1"
               >
                 Nome de usuário
@@ -85,13 +85,13 @@ export default function UsuarioAtualizar({ usuarioId }: UsuarioAtualizarProps) {
           <Col xs={12} sm={12} md={6} lg={6} xl={6}>
             <div className="relative">
               <Controller
-                name="password"
+                name="senhaAcesso"
                 control={control}
                 render={({ field }) => (
                   <input
                     {...field}
                     type="password"
-                    id="password"
+                    id="senhaAcesso"
                     className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                     placeholder=" "
                     required
@@ -99,7 +99,7 @@ export default function UsuarioAtualizar({ usuarioId }: UsuarioAtualizarProps) {
                 )}
               />
               <label
-                htmlFor="password"
+                htmlFor="senhaAcesso"
                 className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-25 top-2 z-10 origin-[0] bg-gray-100 dark:bg-gray-800 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-25 peer-focus:-translate-y-4 left-1"
               >
                 Senha de acesso
@@ -112,11 +112,11 @@ export default function UsuarioAtualizar({ usuarioId }: UsuarioAtualizarProps) {
             <div className="flex mt-4">
               <div className="flex items-center mr-4">
                 <Controller
-                  name="accessusers"
+                  name="acessoUsuarios"
                   control={control}
                   render={({ field: { value, onChange } }) => (
                     <input
-                      id="accessusers"
+                      id="acessoUsuarios"
                       type="checkbox"
                       checked={value}
                       onChange={onChange}
@@ -125,7 +125,7 @@ export default function UsuarioAtualizar({ usuarioId }: UsuarioAtualizarProps) {
                   )}
                 />
                 <label
-                  htmlFor="accessusers"
+                  htmlFor="acessoUsuarios"
                   className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                 >
                   Acesso Usuários
@@ -137,11 +137,11 @@ export default function UsuarioAtualizar({ usuarioId }: UsuarioAtualizarProps) {
             <div className="flex mt-4">
               <div className="flex items-center mr-4">
                 <Controller
-                  name="accessclassific"
+                  name="acessoSeguimentos"
                   control={control}
                   render={({ field: { value, onChange } }) => (
                     <input
-                      id="accessclassific"
+                      id="acessoSeguimentos"
                       type="checkbox"
                       checked={value}
                       onChange={onChange}
@@ -150,7 +150,7 @@ export default function UsuarioAtualizar({ usuarioId }: UsuarioAtualizarProps) {
                   )}
                 />
                 <label
-                  htmlFor="accessclassific"
+                  htmlFor="acessoSeguimentos"
                   className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                 >
                   Acesso Classificação
@@ -162,11 +162,11 @@ export default function UsuarioAtualizar({ usuarioId }: UsuarioAtualizarProps) {
             <div className="flex mt-4">
               <div className="flex items-center mr-4">
                 <Controller
-                  name="accessprospect"
+                  name="acessoProspeccao"
                   control={control}
                   render={({ field: { value, onChange } }) => (
                     <input
-                      id="accessprospect"
+                      id="acessoProspeccao"
                       type="checkbox"
                       checked={value}
                       onChange={onChange}
@@ -175,7 +175,7 @@ export default function UsuarioAtualizar({ usuarioId }: UsuarioAtualizarProps) {
                   )}
                 />
                 <label
-                  htmlFor="accessprospect"
+                  htmlFor="acessoProspeccao"
                   className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                 >
                   Acesso Prospecção
@@ -186,9 +186,16 @@ export default function UsuarioAtualizar({ usuarioId }: UsuarioAtualizarProps) {
         </Row>
         <Row>
           <Col xs={2} sm={2} md={2} lg={2} xl={1}>
-            <Button type="submit" className="mt-4 px-6" color="success">
-              {isLoading ? "Salvando..." : "Salvar"}
-            </Button>
+            {isLoading ? (
+              <Button type="submit" className="mt-4" color="success">
+                <Spinner color="gray" size="xs" />
+                Salvando
+              </Button>
+            ) : (
+              <Button type="submit" className="mt-4" color="success">
+                Salvar
+              </Button>
+            )}
           </Col>
         </Row>
       </Form>

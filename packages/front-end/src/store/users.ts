@@ -1,6 +1,6 @@
 import { api } from "../hooks/useApi";
 import { useQuery, useMutation } from "@tanstack/react-query";
-import { IUser } from "../types";
+import { Usuario } from "../types";
 import { useState } from "react";
 import { AxiosError } from "axios";
 
@@ -29,7 +29,7 @@ export function GetUsersById(id: string | null) {
   return { data, isFetching, isLoading, error };
 }
 
-export function useAddUser(usuario: IUser){
+export function useAddUser(usuario: Usuario){
   const [postResult, setPostResult] = useState({}); 
 
   const { isLoading, isSuccess, mutate: postUsuario }   = useMutation(

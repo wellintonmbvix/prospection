@@ -6,8 +6,8 @@ import { useAuth } from "../../contexts/Auth/useAuth";
 import { DarkThemeToggle } from "../../lib";
 
 type FormValues = {
-  name: string;
-  password: string;
+  nome: string;
+  senha: string;
 };
 
 export default function Login() {
@@ -16,9 +16,9 @@ export default function Login() {
   const auth = useAuth();
   const navigate = useNavigate();
 
-  async function handleSignin(values: { name: string; password: string }) {
+  async function handleSignin(values: { nome: string; senha: string }) {
     try {          
-      await auth.authenticate(values.name, values.password);
+      await auth.authenticate(values.nome, values.senha);
       setShowAviso(false);
       navigate("/home");
     } catch (error) {      
@@ -51,17 +51,17 @@ export default function Login() {
           <form onSubmit={handleSubmit(handleSignin)}>
             <div className="relative z-0 mb-6 w-full group">
               <input
-                {...register("name")}
+                {...register("nome")}
                 type="text"
-                name="name"
-                id="name"
+                name="nome"
+                id="nome"
                 onChange={() => setShowAviso(false)}
                 className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 placeholder=" "
                 required
               />
               <label
-                htmlFor="name"
+                htmlFor="nome"
                 className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-70 top-2 z-10 origin-[0] bg-gray-100 dark:bg-gray-700 px-2 peer-focus:px-2 peer-focus:text-blue-800 dark:peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-70 peer-focus:-translate-y-4 left-1"
               >
                 Nome de usuário
@@ -69,17 +69,17 @@ export default function Login() {
             </div>
             <div className="relative z-0 mb-6 w-full group">
               <input
-                {...register("password")}
+                {...register("senha")}
                 type="password"
-                name="password"
-                id="password"
+                name="senha"
+                id="senha"
                 onChange={() => setShowAviso(false)}
                 className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 placeholder=" "
                 required
               />
               <label
-                htmlFor="password"
+                htmlFor="senha"
                 className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-70 top-2 z-10 origin-[0] bg-gray-100 dark:bg-gray-700 px-2 peer-focus:px-2 peer-focus:text-blue-800 dark:peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-70 peer-focus:-translate-y-4 left-1"
               >
                 Senha de acesso
