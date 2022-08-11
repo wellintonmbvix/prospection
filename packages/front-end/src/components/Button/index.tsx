@@ -25,7 +25,8 @@ export default function Button({
 
         if (userClassName) className.push(userClassName)
 
-        className.push('max-w-min h-9 text-white focus:ring-1 focus:outline-none font-medium text-sm py-2.5 mr-2 mb-2 transition-all duration-150 ease-in-out uppercase')
+        //className.push('text-white focus:ring-1 focus:outline-none font-medium text-sm text-center inline-flex items-center px-5 py-2.5 transition-all duration-150 ease-in-out uppercase')
+        className.push("text-white focus:ring-0 focus:outline-none focus:ring-blue-300 font-medium text-sm px-5 py-2.5 text-center mr-2 dark:focus:ring-blue-800 inline-flex items-center")
 
         if (Icon) className.push('px-2')
 
