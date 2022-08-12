@@ -10,14 +10,12 @@ class RatingsController {
         orderBy: { created_at: "asc" },
       });
 
-      if (ratings.length === 0)
-        return res.json({
-          message: "No momento não existe nenhuma classificação",
-        });
+      if (ratings.length === 0) return res.json([]);
 
       return res.json(ratings);
     } catch (err) {
-      console.log(err);
+      console.log({ message: err });
+      return res.json([]);
     } finally {
       await prisma.$disconnect();
     }
@@ -49,7 +47,7 @@ class RatingsController {
 
       const rating = await prisma.seguimentos.create({
         data: {
-          descricao
+          descricao,
         },
       });
 
@@ -61,9 +59,9 @@ class RatingsController {
     }
   }
 
-  public async updateRatings(req: Request, res: Response){
-    try{
-      const { id } = req.params
+  public async updateRatings(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
 
       const rating = await prisma.seguimentos.update({
         data: {
@@ -76,15 +74,15 @@ class RatingsController {
         return res.json({ message: "Classificação não encontrada" });
       }
 
-      return res.json(rating);      
-    }catch(err){
-      return res.status(500).json({message: err})
-    }finally{
+      return res.json(rating);
+    } catch (err) {
+      return res.status(500).json({ message: err });
+    } finally {
       await prisma.$disconnect();
     }
   }
 
-  public async deleteRating(req: Request, res: Response){
+  public async deleteRating(req: Request, res: Response) {
     try {
       const { id } = req.params;
 
@@ -94,10 +92,12 @@ class RatingsController {
 
       if (!rating) return res.json({ message: "Classificação não encontrada" });
 
-      return res.status(204).json({message: "Classificação excluída com sucesso"});
+      return res
+        .status(204)
+        .json({ message: "Classificação excluída com sucesso" });
     } catch (err) {
-      return res.status(500).json({message: err})
-    }finally{
+      return res.status(500).json({ message: err });
+    } finally {
       await prisma.$disconnect();
     }
   }

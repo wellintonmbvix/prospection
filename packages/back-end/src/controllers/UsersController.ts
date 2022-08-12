@@ -27,11 +27,12 @@ class UsersController {
       });
 
       if (users.length === 0)
-        return res.json({ message: "No momento não existe nenhum usuário" });
+        return res.json([]);
 
       return res.json(users);
     } catch (err) {
-      console.log(err);
+      console.log({ message: err });
+      return res.status(501).json([]);
     } finally {
       await prisma.$disconnect();
     }
@@ -49,7 +50,8 @@ class UsersController {
 
       return res.json(usuario);
     } catch (err) {
-      console.log(err);
+      console.log({ message: err });
+      return res.status(501).json([]);
     } finally {
       await prisma.$disconnect();
     }
@@ -110,12 +112,12 @@ class UsersController {
       // Método de criptografia 'sha256'
       const hash = crypto
         .createHmac("sha256", secretKey)
-        .update(req.body.senha)
+        .update(req.body.senhaAcesso)
         .digest("base64");
 
       const {
-        nome,
-        senha,
+        nomeUsuario,
+        senhaAcesso,
         acessoUsuarios,
         acessoSeguimentos,
         acessoProspeccao,
@@ -123,7 +125,7 @@ class UsersController {
 
       const users = await prisma.users.create({
         data: {
-          nomeUsuario: nome,
+          nomeUsuario,
           senhaAcesso: hash,
           acessoUsuarios,
           acessoSeguimentos,
@@ -142,7 +144,13 @@ class UsersController {
   public async updateUser(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      const { nome, senha, acessoUsuarios, acessoSeguimentos, acessoProspeccao } = req.body;
+      const {
+        nome,
+        senha,
+        acessoUsuarios,
+        acessoSeguimentos,
+        acessoProspeccao,
+      } = req.body;
 
       const user = await prisma.users.update({
         data: {
@@ -150,7 +158,7 @@ class UsersController {
           senhaAcesso: senha,
           acessoUsuarios,
           acessoSeguimentos,
-          acessoProspeccao
+          acessoProspeccao,
         },
         where: { usuarioId: id },
       });
@@ -161,7 +169,7 @@ class UsersController {
 
       return res.json(user);
     } catch (err) {
-      console.log(err)
+      console.log(err);
       return res.status(500).json({ message: err });
     } finally {
       await prisma.$disconnect();
