@@ -21,6 +21,7 @@ export default function Login() {
       await auth.authenticate(values.nome, values.senha);
       setShowAviso(false);
       navigate("/home");
+      window.location.reload();
     } catch (error) {      
       setShowAviso(true);
     }
