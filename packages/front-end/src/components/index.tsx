@@ -37,3 +37,5 @@ export { default as Snackbar, type SnackbarProps } from './Snackbar'
 export { default as Dialog, type DialogProps } from './Dialog'
 
 export { default as Modal } from './Modal'
+
+export { default as Pagination } from './Pagination'
