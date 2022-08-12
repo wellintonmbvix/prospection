@@ -1,6 +1,6 @@
 import { useSearchParams } from "react-router-dom";
 import { Card, PageHeader } from "../../components"
-import UsuarioAtualizar from "../../features/usuarios/UsuarioAtualizar"
+import SeguimentoAtualizar from "../../features/seguimentos/SeguimentoAtualizar"
 
 export default function Page() {  
   const [searchParams] = useSearchParams();
@@ -8,10 +8,10 @@ export default function Page() {
   return (
     <div className="w-full h-full mt-4 flex flex-column items-start grid justify-items-center">
       <div className="w-1/2">
-      <PageHeader title="Editar Usuário" showGoBack />
+      <PageHeader title="Editar Seguimento" showGoBack />
        <Card elevation="md">
-          <UsuarioAtualizar
-            usuarioId={searchParams.get("id")}
+          <SeguimentoAtualizar
+            seguimentoId={searchParams.get("id")}
           />
        </Card>        
       </div>

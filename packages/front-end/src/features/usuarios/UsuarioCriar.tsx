@@ -3,14 +3,13 @@ import { Controller, useForm } from "react-hook-form";
 import { Usuario } from "../../types";
 import { useMutation } from "@tanstack/react-query";
 import { api } from "../../hooks/useApi";
-import { useState } from "react";
+import { AxiosError } from "axios";
 
 const { Row, Col } = Grid;
 const { useSnackbar } = Snackbar;
 
 export default function UsuarioCriar() {
   const snackbar = useSnackbar();
-  const [isError, setIsError] = useState(false);
 
   const { handleSubmit, control, reset } = useForm<Usuario>({
     defaultValues: {
@@ -24,20 +23,11 @@ export default function UsuarioCriar() {
 
   const postUsuario = async (usuario: Usuario) => {
     const response = await api.post("/users/create", usuario);
-    return response.status;
+    return response.statusText;
   };
 
   const mutation = useMutation(postUsuario, {
-    onError: () => {
-      setIsError(true);
-    },
-  });
-
-  const { isLoading } = mutation;
-
-  const onSubmit = (values: Usuario, _: any) => {
-    mutation.mutate(values);
-    if (!isError) {
+    onSuccess: () => {
       snackbar.success("Usuário criado com sucesso!");
       reset({
         nomeUsuario: "",
@@ -46,10 +36,16 @@ export default function UsuarioCriar() {
         acessoSeguimentos: false,
         acessoProspeccao: false,
       });
-    }
-    if (isError) {
-      snackbar.error(`Erro ao criar usuário: ${mutation.error}`);
-    }
+    },
+    onError: (error: AxiosError) => {
+      snackbar.error(`Erro na criação de usuário. ${JSON.stringify(error.response?.data)}`);
+    },
+  });
+
+  const { isLoading } = mutation;
+
+  const onSubmit = (values: Usuario, _: any) => {
+    mutation.mutate(values);
   };
 
   return (

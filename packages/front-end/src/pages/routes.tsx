@@ -5,8 +5,10 @@ import Classification from "./classification";
 import Prospects from "./prospect";
 import Login from "./login";
 import { AppLayout } from "../components";
-import UppdateUsers from "./user/editar";
 import NewUsers from "./user/novo";
+import UppdateUsers from "./user/editar";
+import NewClassification from "./classification/novo";
+import UpdateClassification from "./classification/editar";
 
 interface PrivateRouteProps {
   children: React.ReactElement;
@@ -73,6 +75,26 @@ export default function Rotas() {
           }
           path="/classification"
         />
+        <Route
+          element={
+            <PrivateRoute redirectTo="/">
+              <AppLayout>
+                <NewClassification />
+              </AppLayout>
+            </PrivateRoute>
+          }
+          path="/classification/novo"
+        />       
+                <Route
+          element={
+            <PrivateRoute redirectTo="/">
+              <AppLayout>
+                <UpdateClassification />
+              </AppLayout>
+            </PrivateRoute>
+          }
+          path="/classification/editar"
+        />    
         <Route
           element={
             <PrivateRoute redirectTo="/">

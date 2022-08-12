@@ -1,4 +1,4 @@
-export interface Seguimentos {
-  seguimentoid: number;
+export interface Seguimento {
+  seguimentoId: number;
   descricao: string;
 }

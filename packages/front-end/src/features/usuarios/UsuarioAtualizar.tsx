@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Snackbar, Button, Grid, Form, Spinner } from "../../components";
 import { Controller, useForm } from "react-hook-form";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -15,7 +15,6 @@ interface UsuarioAtualizarProps {
 
 export default function UsuarioAtualizar({ usuarioId }: UsuarioAtualizarProps) {
   const snackbar = useSnackbar();
-  const [isError, setIsError] = useState(false);
   const navigate = useNavigate();
   const { handleSubmit, control, reset } = useForm<Usuario>();
   const { data: usuario } = useQuery(["usuarios"], async () => {
@@ -26,7 +25,7 @@ export default function UsuarioAtualizar({ usuarioId }: UsuarioAtualizarProps) {
 
   useEffect(() => {
     if (usuario) reset(usuario);
-  }, [usuario]);
+  }, [reset, usuario]);
 
   const postUsuario = async (usuario: Usuario) => {
     const response = await api.put(`/users/update/${usuarioId}`, usuario);
@@ -34,22 +33,19 @@ export default function UsuarioAtualizar({ usuarioId }: UsuarioAtualizarProps) {
   };
 
   const mutation = useMutation(postUsuario, {
+    onSuccess: () => {
+      snackbar.success("Usuário atualizado com sucesso!");
+      setTimeout(() => navigate("/users"), 1000);
+    },
     onError: () => {
-      setIsError(true);
+      snackbar.error(`Erro ao criar usuário: ${mutation.error}`);
     },
   });
 
   const { isLoading } = mutation;
 
   const onSubmit = (values: Usuario, _: any) => {    
-    mutation.mutate(values);
-    if (!isError) {
-      snackbar.success("Usuário atualizado com sucesso!");
-      setTimeout(() => navigate("/users"), 1000);
-    }
-    if (isError) {
-      snackbar.error(`Erro ao criar usuário: ${mutation.error}`);
-    }
+    mutation.mutate(values);   
   };
 
   return (

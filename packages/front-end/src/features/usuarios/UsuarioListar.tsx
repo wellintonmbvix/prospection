@@ -1,18 +1,42 @@
 import { Link } from "react-router-dom";
 import { PencilAltIcon, TrashIcon } from "@heroicons/react/outline";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient  } from "@tanstack/react-query";
 import { Usuario } from "../../types";
-import { ColumnType, DataGrid } from "../../components";
+import { ColumnType, DataGrid, Dialog, Snackbar } from "../../components";
 import { api } from "../../hooks/useApi";
+import { AxiosError } from "axios";
+
+const { useDialog } = Dialog
+const { useSnackbar } = Snackbar;
 
 export default function UsuarioListar() {
-  const { data, isLoading } = useQuery(["usuarios"], async () => {
+  const { data, isFetching } = useQuery<Usuario[]>(["usuarios"], async () => {
     const response = await api.get("/users");
 
     return response.data;
-  });
+  });  
 
-  const columns: ColumnType<Usuario>[] = [
+  const queryClient = useQueryClient()
+  const dialog = useDialog();
+  const snackbar = useSnackbar();
+
+  const deleteUsuario = async (id: string) => {
+    const response = await api.delete(`/users/${id}`);
+
+    return response.statusText;
+  }
+
+  const mutation = useMutation(deleteUsuario, {
+    onSuccess: () => {
+      snackbar.success("Usuário excluído com sucesso!");
+      queryClient.invalidateQueries(['usuarios']);
+    },
+    onError: (error: AxiosError) => {
+      snackbar.error(`Erro ao excluí usuário. ${JSON.stringify(error.response?.data)}`);
+    }
+  })
+
+  const columns: ColumnType[] = [
     {
       key: "nomeUsuario",
       title: "Nome de Usuário",
@@ -58,9 +82,17 @@ export default function UsuarioListar() {
           <Link to={`/users/editar?id=${row.usuarioId}`}>
             <PencilAltIcon className="w-6 h-6 stroke-gray-700 dark:stroke-gray-50 hover:cursor-pointer" />
           </Link>
-          <Link to="#" onClick={() => {}}>
-            <TrashIcon className="w-6 h-6 stroke-red-700 hover:cursor-pointer" />
-          </Link>
+          <Link to="#" onClick={ () => {
+            dialog.show({
+              title: "Usuários",
+              message: `Deseja realmente excluir o usuário ${row.nomeUsuario}?`,
+              okText: "Sim",
+              cancelText: "Não",
+              onOk: () => {
+                mutation.mutate(row.usuarioId);
+              },
+            })
+          }}> <TrashIcon className="w-6 h-6 stroke-red-700 hover:cursor-pointer" /> </Link>          
         </div>
       ),
     },
@@ -68,10 +100,10 @@ export default function UsuarioListar() {
 
   return (
     <DataGrid
-        dataSource={data}
-        columns={columns}
-        rowKey={(row) => row.usuarioId}
-        loading={isLoading}
-      />
+      dataSource={data}
+      columns={columns}
+      rowKey={(row) => row.usuarioId}
+      loading={isFetching}
+    />
   );
 }

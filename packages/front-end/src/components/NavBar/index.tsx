@@ -54,7 +54,7 @@ export default function NavBar() {
                   to="/classification"
                   className="block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white hover:drop-shadow-lg"                 
                 >
-                  Classificação
+                  Seguimentos
                 </Link>
               </li>
               <li>
@@ -71,6 +71,7 @@ export default function NavBar() {
                   className="block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white hover:drop-shadow-lg"
                   onClick={() => {            
                     auth.logout();
+                    window.location.reload();
                   }}                  
                 >
                   Logout
