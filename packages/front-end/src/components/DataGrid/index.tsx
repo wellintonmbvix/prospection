@@ -59,7 +59,7 @@ export default function DataGrid<T>({
     <>
     <div className="overflow-x-auto relative">
       {mounted && (
-        <table className="w-full text-sm text-left text-gray-500 bg-white dark:text-gray-400">
+        <table className="w-full text-sm text-left text-gray-500 bg-white dark:text-gray-400 z-0">
           <thead className="text-x bg-gray-200 text-gray-400 uppercase dark:bg-gray-700 dark:text-gray-400">
             <tr>
               {columns?.length &&
@@ -103,7 +103,7 @@ export default function DataGrid<T>({
         </table>
       )}
       {mounted && dataSource && dataSource?.length > 0 && loading && (
-        <div className="z-10">
+        <div className="absolute top-0 left-0 bottom-0 right-0 flex justify-center items-center backdrop-blur-xl backdrop-brightness-50 backdrop-opacity-40">
             <Spinner />
         </div>
       )}
