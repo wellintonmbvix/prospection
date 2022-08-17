@@ -11,12 +11,12 @@ prospectsRoutes.post(
   "/create",
   auth,
   oneOf([
-    check("name", "Campo name ausente").exists(),
-    check("contact", "Campo contact ausente").exists(),
-    check("phone1", "Campo phone1 ausente").exists(),
-    check("phone2", "Campo phone2 ausente").exists(),
-    check("email", "Campo email ausente").exists(),
-    check("classification", "Campo classification ausente").exists(),
+    check("nomeEmpresa", "Campo Empresa ausente").exists(),
+    check("nomeContato", "Campo Contato ausente").exists(),
+    check("telefone1", "Campo Tel1 ausente").exists(),
+    check("telefone2", "Campo Tel2 ausente").exists(),
+    check("email1", "Campo email1 ausente").exists(),
+    check("id_seguimento", "Campo Seguimento ausente").exists(),
   ]),
   (req, res, next) => {
     const errors = validationResult(req);

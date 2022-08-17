@@ -22,6 +22,27 @@ class ProspectsController {
         const prospects = await prisma.prospeccao.findMany({
           take: Number(linhas),
           orderBy: { created_at: "asc" },
+          select: {
+            prospeccaoId: true,
+            nomeEmpresa: true,
+            nomeContato: true,
+            telefone1: true,
+            telefone2: true,
+            email1: true,
+            email2: true,
+            id_seguimento: false,
+            seguimento: true,
+            cidade: true,
+            estado: true,
+            proximoContato: true,
+            nomeSistema: true,
+            observacao: true,
+            ativo: true,
+            created_at: true,
+            updated_at: true,
+            id_usuario: false,
+            usuario: true
+          },
           where: {
             nomeEmpresa: {
               contains: String(byName),
@@ -30,21 +51,39 @@ class ProspectsController {
         });
 
         if (prospects.length === 0)
-          return res.json({
-            message: "No momento não existe nenhuma classificação",
-          });
+          return res.json([]);
 
         return res.json({
-          data: {
-            prospects,
-            pagina: pagina,
-            totalPages: totalPages,
-          },
+          prospects,
+          pagina: pagina,
+          totalPages: totalPages,
+          totalRecords: prospects.length
         });
       } else {
         const prospects = await prisma.prospeccao.findMany({
           take: Number(linhas),
           skip: Number(linhas) * Number(pagina),
+          select: {
+            prospeccaoId: true,
+            nomeEmpresa: true,
+            nomeContato: true,
+            telefone1: true,
+            telefone2: true,
+            email1: true,
+            email2: true,
+            id_seguimento: false,
+            seguimento: true,
+            cidade: true,
+            estado: true,
+            proximoContato: true,
+            nomeSistema: true,
+            observacao: true,
+            ativo: true,
+            created_at: true,
+            updated_at: true,
+            id_usuario: false,
+            usuario: true
+          },
           orderBy: { created_at: "asc" },
           where: {
             nomeEmpresa: {
@@ -54,14 +93,13 @@ class ProspectsController {
         });
 
         if (prospects.length === 0)
-          return res.json({
-            message: "No momento não existe nenhuma classificação",
-          });
+          return res.json([]);
 
         return res.json({
           prospects,
           pagina: pagina,
           totalPages: totalPages,
+          totalRecords: prospects.length
         });
       }
     } catch (err) {
@@ -132,6 +170,7 @@ class ProspectsController {
 
       return res.status(201).json(prospect);
     } catch (err) {
+      console.log(err)
       return res.status(415).json({ error: err });
     } finally {
       await prisma.$disconnect();
