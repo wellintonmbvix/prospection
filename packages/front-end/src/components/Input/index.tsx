@@ -4,10 +4,11 @@ export type InputProps = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
   "size" | "prefix" | "type"
 > & {
-  type?: "email" | "password" | "date" | "datatime-local" | "time";
+  type?: "text" | "email" | "password" | "date" | "datatime-local" | "time";
   icon?: (props: React.ComponentProps<"svg">) => JSX.Element;
   error?: boolean;
   noStyle?: boolean;
+  labelInput: string;
 };
 
 export default function Input({
@@ -17,40 +18,21 @@ export default function Input({
   icon: Icon,
   error,
   noStyle,
+  labelInput,
   ...inputProps
 }: InputProps) {
-  const inputRef = React.useRef(null);
-
-  const getClassName = (): string => {
-    const className = new Array<string>();
-
-    className.push("outline-none w-full transition-all ease-in duration-200 ");
-
-    if (Icon) className.push("pl-8");
-
-    if (noStyle) return className.join(" ");
-    else
-      className.push(
-        "ring-0 ring-opacity-0 border border-gray-200 rounded h-9 py-1.5 pr-2"
-      );
-
-    if (error) className.push('bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500')
-
-    return className.join(" ");
-  };
-
   return (
-    <div className={["relative mb-6", userClassName].join(' ')} style={style}>
-      <div>
-        {Icon && (
-          <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-            <Icon />
-          </div>
-        )}
-      </div>
-      <input ref={inputRef} className={getClassName()} {...inputProps} />
+    <div className="relative" style={style}>
+      {!error && (
+        <>
+        <input type={type} id="floating_outlined" {...inputProps} className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+        <label htmlFor="floating_outlined" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-25 top-2 z-10 origin-[0] bg-gray-100 dark:bg-gray-800 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-25 peer-focus:-translate-y-4 left-1">{labelInput}</label></>
+      )}
       {error && (
-        <p className="mt-2 text-sm text-red-600 dark:text-red-500"><span className="font-medium">Validação!</span>Campo vazio ou inválido</p>
+        <>
+          <input type={type} id="outlined_error" aria-describedby="outlined_error_help" {...inputProps} className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 appearance-none dark:text-white dark:border-red-500 border-red-600 dark:focus:border-red-500 focus:outline-none focus:ring-0 focus:border-red-600 peer" placeholder=" " />
+          <label htmlFor="outlined_error" className="absolute text-sm text-red-600 dark:text-red-500 duration-300 transform -translate-y-4 scale-25 top-2 z-10 origin-[0] bg-gray-100 dark:bg-gray-800 px-2 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">{labelInput}</label>
+        </>
       )}
     </div>
   );

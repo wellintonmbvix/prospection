@@ -6,6 +6,6 @@ export type GridRowProps = {
 
 export default function Row({ children }: GridRowProps) {
   return (
-    <div className="grid grid-cols-12 gap-4 content-evenly">{children}</div>
+    <div className="grid grid-cols-12 gap-4 content-evenly mt-4">{children}</div>
   );
 }
