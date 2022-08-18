@@ -98,7 +98,7 @@ class UsersController {
       return res.status(201).json({
         auth: true,
         token: `Bearer ${token}`,
-        nome: usuario.nomeUsuario,
+        usuarioId: usuario.usuarioId,
       });
     } catch (err) {
       return res.status(400).json({ message: err });
