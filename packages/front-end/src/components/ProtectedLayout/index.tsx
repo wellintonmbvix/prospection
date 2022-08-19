@@ -4,7 +4,7 @@ import { Navigate } from "react-router-dom"
 export const ProtectedLayout = ({ children }: { children: JSX.Element}) => {
     const auth = useAuth();
 
-    if(auth.nome === null ||  auth.nome === ""){
+    if(auth.usuarioId === null ||  auth.usuarioId === ""){
         Navigate({ to: "/login"})
     }
 

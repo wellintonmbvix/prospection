@@ -3,7 +3,7 @@ import { IAuthProvider, IContext } from "../../types";
 import { getUserLocalStorage, LoginRequest, setUserLocalStorage } from "./util";
 
 interface UsuarioRequest {  
-  nome: string;
+  usuarioId: string;
 }
 
 export const AuthContext = createContext<IContext>({} as IContext);
@@ -27,7 +27,9 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
       throw new Error(response?.data.message);
     }
 
-    const payload = { token: response.data.token, nome };
+    const usuarioId = response?.data.usuarioId
+
+    const payload = { token: response.data.token, usuarioId };
 
     setUser(payload);
     setUserLocalStorage(payload);

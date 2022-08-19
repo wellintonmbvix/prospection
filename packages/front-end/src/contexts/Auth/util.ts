@@ -2,12 +2,12 @@ import request from "axios";
 import { api } from "../../hooks/useApi";
 
 interface UsuarioRequest {
-  nome: string;
+  usuarioId: string;
 }
 
-export function setUserLocalStorage(usuario: UsuarioRequest | null) {
-  if(usuario !== null){
-    localStorage.setItem("u", JSON.stringify(usuario)); 
+export function setUserLocalStorage(usuarioId: UsuarioRequest | null) {
+  if(usuarioId !== null){
+    localStorage.setItem("u", JSON.stringify(usuarioId)); 
   } else 
     localStorage.removeItem("u");
 }
