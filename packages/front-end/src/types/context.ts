@@ -1,4 +1,5 @@
 interface UsuarioRequest {
+    usuarioId?: string;
     nome?: string;
 }
 
