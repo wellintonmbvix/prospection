@@ -62,7 +62,7 @@ export default function DataGrid<T>({
     <>
       <div className="overflow-x-auto relative">
         {mounted && (
-          <table className="w-full text-sm text-left text-gray-500 bg-white dark:text-gray-400 z-0">
+          <table className="w-full text-sm text-left text-gray-500 bg-white dark:text-gray-400 z-0 table-auto">
             <thead className="text-x bg-gray-200 text-gray-400 uppercase dark:bg-gray-700 dark:text-gray-400">
               <tr>
                 {columns?.length &&
