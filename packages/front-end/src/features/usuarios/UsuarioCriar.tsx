@@ -4,6 +4,7 @@ import { Usuario } from "../../types";
 import { useMutation } from "@tanstack/react-query";
 import { api } from "../../hooks/useApi";
 import { AxiosError } from "axios";
+import Checkbox from "../../components/Checkbox";
 
 const { Row, Col } = Grid;
 const { useSnackbar } = Snackbar;
@@ -38,7 +39,9 @@ export default function UsuarioCriar() {
       });
     },
     onError: (error: AxiosError) => {
-      snackbar.error(`Erro na criação de usuário. ${JSON.stringify(error.response?.data)}`);
+      snackbar.error(
+        `Erro na criação de usuário. ${JSON.stringify(error.response?.data)}`
+      );
     },
   });
 
@@ -105,79 +108,49 @@ export default function UsuarioCriar() {
         </Row>
         <Row>
           <Col xs={12} sm={12} md={12} lg={6} xl={4}>
-            <div className="flex mt-4">
-              <div className="flex items-center mr-4">
-                <Controller
+            <Controller
+              name="acessoUsuarios"
+              control={control}
+              render={({ field: { value, onChange } }) => (
+                <Checkbox
+                  idCheckbox="acessoUsuarios"
+                  textCaption="Acesso Usuários"
                   name="acessoUsuarios"
-                  control={control}
-                  render={({ field: { value, onChange } }) => (
-                    <input
-                      id="acessoUsuarios"
-                      type="checkbox"
-                      checked={value}
-                      onChange={onChange}
-                      className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-1 dark:bg-gray-700 dark:border-gray-600"
-                    />
-                  )}
+                  checked={value}
+                  onChange={onChange}
                 />
-                <label
-                  htmlFor="acessoUsuarios"
-                  className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                >
-                  Acesso Usuários
-                </label>
-              </div>
-            </div>
+              )}
+            />
           </Col>
           <Col xs={12} sm={12} md={12} lg={6} xl={4}>
-            <div className="flex mt-4">
-              <div className="flex items-center mr-4">
-                <Controller
+            <Controller
+              name="acessoSeguimentos"
+              control={control}
+              render={({ field: { value, onChange } }) => (
+                <Checkbox
+                  idCheckbox="acessoSeguimentos"
+                  textCaption="Acesso Seguimentos"
                   name="acessoSeguimentos"
-                  control={control}
-                  render={({ field: { value, onChange } }) => (
-                    <input
-                      id="acessoSeguimentos"
-                      type="checkbox"
-                      checked={value}
-                      onChange={onChange}
-                      className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-1 dark:bg-gray-700 dark:border-gray-600"
-                    />
-                  )}
+                  checked={value}
+                  onChange={onChange}
                 />
-                <label
-                  htmlFor="acessoSeguimentos"
-                  className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                >
-                  Acesso Classificação
-                </label>
-              </div>
-            </div>
+              )}
+            />
           </Col>
           <Col xs={12} sm={12} md={12} lg={12} xl={4}>
-            <div className="flex mt-4">
-              <div className="flex items-center mr-4">
-                <Controller
+            <Controller
+              name="acessoProspeccao"
+              control={control}
+              render={({ field: { value, onChange } }) => (
+                <Checkbox
+                  idCheckbox="acessoProspeccao"
+                  textCaption="Acesso Prospecção"
                   name="acessoProspeccao"
-                  control={control}
-                  render={({ field: { value, onChange } }) => (
-                    <input
-                      id="acessoProspeccao"
-                      type="checkbox"
-                      checked={value}
-                      onChange={onChange}
-                      className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-1 dark:bg-gray-700 dark:border-gray-600"
-                    />
-                  )}
+                  checked={value}
+                  onChange={onChange}
                 />
-                <label
-                  htmlFor="acessoProspeccao"
-                  className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                >
-                  Acesso Prospecção
-                </label>
-              </div>
-            </div>
+              )}
+            />
           </Col>
         </Row>
         <Row>

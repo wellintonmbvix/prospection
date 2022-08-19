@@ -72,7 +72,7 @@ export default function SeguimentoListar() {
       dataSource={data}
       columns={columns}
       rowKey={(row) => row.seguimentoId}
-      loading={isFetching}
+      loading={isFetching}      
     />
   )
 }

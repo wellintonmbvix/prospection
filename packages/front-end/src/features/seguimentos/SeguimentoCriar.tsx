@@ -1,4 +1,3 @@
-import React, { useEffect, useRef } from "react";
 import { Snackbar, Grid, Button, Form, Spinner } from "../../components";
 import { Controller, useForm } from "react-hook-form";
 import { Seguimento } from "../../types";
