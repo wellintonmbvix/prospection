@@ -9,7 +9,7 @@ export default function Prospects() {
     <div className="w-full h-full mt-4 flex flex-column items-start grid justify-items-center">
       <div className="w-1/2">
         <PageHeader
-          title="Seguimentos"
+          title="Prospecções"
           actions={
             <Button
               icon={PlusSmIcon}

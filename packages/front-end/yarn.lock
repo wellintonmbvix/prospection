@@ -13633,7 +13633,7 @@ signal-exit@^3.0.0, signal-exit@^3.0.2, signal-exit@^3.0.3:
 
 simplebar-react@^2.4.1:
   version "2.4.1"
-  resolved "https://registry.npmjs.org/simplebar-react/-/simplebar-react-2.4.1.tgz"
+  resolved "https://registry.yarnpkg.com/simplebar-react/-/simplebar-react-2.4.1.tgz#f8c37064d1be52e53c1f62e199a02d9104aa290a"
   integrity sha512-lw0ZPj+80ez2mh1YTOligFUNzDch2sUbOzDp4WUhU5SpS+qMiyyOzNfMbHa0l4FyWox+tnGNO7jybxqIda3roQ==
   dependencies:
     prop-types "^15.6.1"

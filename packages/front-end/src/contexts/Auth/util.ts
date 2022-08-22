@@ -6,10 +6,9 @@ interface UsuarioRequest {
 }
 
 export function setUserLocalStorage(usuarioId: UsuarioRequest | null) {
-  if(usuarioId !== null){
-    localStorage.setItem("u", JSON.stringify(usuarioId)); 
-  } else 
-    localStorage.removeItem("u");
+  if (usuarioId !== null) {
+    localStorage.setItem("u", JSON.stringify(usuarioId));
+  } else localStorage.removeItem("u");
 }
 
 export function getUserLocalStorage() {
@@ -26,14 +25,13 @@ export function getUserLocalStorage() {
 
 export async function LoginRequest(nome: string, senha: string) {
   try {
-    
     const req = await api.post("login", { nome, senha });
-    
+
     return req;
-  } catch (error) {    
+  } catch (error) {
     if (request.isAxiosError(error) && error.response) {
       if (error.response?.status !== 201) {
-        const { token, message } = JSON.parse(error.response?.request.response);
+        const { message } = JSON.parse(error.response?.request.response);
         throw new Error(message);
       }
     }
