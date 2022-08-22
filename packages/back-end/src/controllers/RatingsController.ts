@@ -4,15 +4,60 @@ import { Request, Response } from "express";
 const prisma = new PrismaClient();
 
 class RatingsController {
-  public async findAllRatings(_: Request, res: Response) {
+  public async findAllRatings(req: Request, res: Response) {
     try {
-      const ratings = await prisma.seguimentos.findMany({
-        orderBy: { created_at: "asc" },
+      let { linhas = 50, pagina = 1, byDescricao = "" } = req.query;
+
+      const registros = await prisma.seguimentos.count({
+        where: {
+          descricao: {
+            contains: String(byDescricao),
+          },
+        },
       });
 
-      if (ratings.length === 0) return res.json([]);
+      const totalPages = Math.ceil(registros / Number(linhas)).toFixed(0);
 
-      return res.json(ratings);
+      if (pagina == "1") {
+        const ratings = await prisma.seguimentos.findMany({
+          take: Number(linhas),
+          orderBy: { created_at: "asc" },
+          where: {
+            descricao: {
+              contains: String(byDescricao),
+            },
+          },
+        });
+
+        if (ratings.length === 0) return res.json([]);
+
+        return res.json({
+          ratings,
+          pagina: pagina,
+          totalPages: totalPages,
+          totalRecords: registros,
+        });
+      } else {
+        const ratings = await prisma.seguimentos.findMany({
+          take: Number(linhas),
+          skip: (Number(linhas) * Number(pagina)) - Number(linhas),
+          orderBy: { created_at: "asc" },
+          where: {
+            descricao: {
+              contains: String(byDescricao),
+            },
+          },
+        });
+
+        if (ratings.length === 0) return res.json([]);
+
+        return res.json({
+          ratings,
+          pagina: pagina,
+          totalPages: totalPages,
+          totalRecords: registros,
+        });
+      }
     } catch (err) {
       console.log({ message: err });
       return res.json([]);

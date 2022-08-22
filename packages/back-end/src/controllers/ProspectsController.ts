@@ -62,7 +62,7 @@ class ProspectsController {
       } else {
         const prospects = await prisma.prospeccao.findMany({
           take: Number(linhas),
-          skip: Number(linhas) * Number(pagina),
+          skip: (Number(linhas) * Number(pagina)) - Number(linhas),
           select: {
             prospeccaoId: true,
             nomeEmpresa: true,
