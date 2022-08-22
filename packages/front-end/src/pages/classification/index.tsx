@@ -7,7 +7,7 @@ export default function Classification() {
   const navigate = useNavigate();
   return (
     <div className="w-full h-full mt-4 flex flex-column items-start grid justify-items-center">
-      <div className="w-1/2">
+      <div className="w-1/2 sm:min-w-2/3">
         <PageHeader
           title="Seguimentos"
           actions={
