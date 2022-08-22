@@ -21,8 +21,8 @@ function PaginationItem({
         className !== undefined ? `${className} ` : ""
       }h-8 w-8 border-primary rounded flex justify-center items-center ${
         active
-          ? "bg-blue-700 text-white"
-          : "text-gray-100 hover:bg-gray-700 hover:bg-opacity-25"
+          ? "bg-gray-700 text-gray-50"
+          : "text-gray-700 dark:text-gray-50 hover:bg-gray-600 hover:bg-opacity-25"
       }`}
       {...buttonProps}
     >
@@ -104,12 +104,13 @@ export default function Pagination({
     <div className="flex items-center space-x-1">
       <PaginationItem
         onClick={() => setPageNumber((page) => (page > 1 ? page - 1 : page))}
+        className="text-gray-700 rounded-l-lg border border-gray-300 dark:text-gray-50 dark:hover:bg-gray-700 dark:border-gray-600"
       >
         <ChevronLeftIcon className="h-4 w-4" />
       </PaginationItem>
       <PaginationItem
         active={currentPage === 1}
-        onClick={() => setPageNumber(1)}
+        onClick={() => setPageNumber(1)}        
       >
         1
       </PaginationItem>
@@ -120,7 +121,7 @@ export default function Pagination({
         <PaginationItem
           key={page}
           active={currentPage === page}
-          onClick={() => setPageNumber(page)}
+          onClick={() => setPageNumber(page)}          
         >
           {page.toString()}
         </PaginationItem>
@@ -129,7 +130,7 @@ export default function Pagination({
       {getTotal() > 1 && (
         <PaginationItem
           active={currentPage === getTotal()}
-          onClick={() => setPageNumber(getTotal())}
+          onClick={() => setPageNumber(getTotal())}          
         >
           {Math.ceil(getTotal()).toString()}
         </PaginationItem>
@@ -140,6 +141,7 @@ export default function Pagination({
             page < Math.ceil(getTotal()) ? page + 1 : page
           )
         }
+        className="text-gray-700 rounded-r-lg border border-gray-300 dark:text-gray-50 dark:hover:bg-gray-700 dark:border-gray-600"
       >
         <ChevronRightIcon className="h-4 w-4" />
       </PaginationItem>
