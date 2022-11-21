@@ -80,7 +80,7 @@ class UsersController {
       if (!usuario)
         return res
           .status(403)
-          .send({ token: "", message: "Usuário ou senha inválidos" });
+          .send({ auth: false, token: "", usuarioId: "", message: "Usuário ou senha inválidos" });
 
       const token = jwt.sign(
         {
@@ -99,6 +99,7 @@ class UsersController {
         auth: true,
         token: `Bearer ${token}`,
         usuarioId: usuario.usuarioId,
+        message: "Usuário logado com sucesso!"
       });
     } catch (err) {
       return res.status(400).json({ message: err });
