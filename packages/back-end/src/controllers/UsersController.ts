@@ -26,8 +26,7 @@ class UsersController {
         orderBy: { created_at: "asc" },
       });
 
-      if (users.length === 0)
-        return res.json([]);
+      if (users.length === 0) return res.json([]);
 
       return res.json(users);
     } catch (err) {
@@ -80,7 +79,12 @@ class UsersController {
       if (!usuario)
         return res
           .status(403)
-          .send({ auth: false, token: "", usuarioId: "", message: "Usuário ou senha inválidos" });
+          .send({
+            auth: false,
+            token: "",
+            usuarioId: "",
+            message: "Usuário ou senha inválidos",
+          });
 
       const token = jwt.sign(
         {
@@ -99,7 +103,7 @@ class UsersController {
         auth: true,
         token: `Bearer ${token}`,
         usuarioId: usuario.usuarioId,
-        message: "Usuário logado com sucesso!"
+        message: "Usuário logado com sucesso!",
       });
     } catch (err) {
       return res.status(400).json({ message: err });
@@ -146,8 +150,8 @@ class UsersController {
     try {
       const { id } = req.params;
       const {
-        nome,
-        senha,
+        nomeUsuario,
+        senhaAcesso,
         acessoUsuarios,
         acessoSeguimentos,
         acessoProspeccao,
@@ -155,8 +159,8 @@ class UsersController {
 
       const user = await prisma.users.update({
         data: {
-          nomeUsuario: nome,
-          senhaAcesso: senha,
+          nomeUsuario,
+          senhaAcesso,
           acessoUsuarios,
           acessoSeguimentos,
           acessoProspeccao,
@@ -181,15 +185,19 @@ class UsersController {
     try {
       const { id } = req.params;
 
-      const user = await prisma.users.delete({
+      await prisma.users.delete({
         where: { usuarioId: id },
-      });
+      });      
 
-      if (!user) return res.json({ message: "Usuário não encontrado" });
-
-      return res.status(204).json(user);
+      res.status(200).json(JSON.stringify({
+        success: true,
+        message: "Exclusão realizada com sucesso",
+      }));
     } catch (err) {
-      console.log(err);
+      return res.json(JSON.stringify({
+        success: false,
+        message: `Erro durante exclusão: ${err}`,
+      }));
     } finally {
       await prisma.$disconnect();
     }
